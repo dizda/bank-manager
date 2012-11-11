@@ -14,8 +14,7 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    dizda:  { password: bambou, roles: [ 'ROLE_USER' ] }
 
     firewalls:
         dev:
@@ -27,13 +26,10 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/demo/secured/
-            form_login:
-                check_path: /demo/secured/login_check
-                login_path: /demo/secured/login
-            logout:
-                path:   /demo/secured/logout
-                target: /demo/
+            pattern:    ^/
+            anonymous: false
+            http_basic:
+                realm: "BANK"
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
