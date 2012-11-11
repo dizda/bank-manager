@@ -1,0 +1,92 @@
+{% if history is defined %}
+
+    {% if history[currentDate|date('m/Y')] is defined %}
+        {% set currentMonth = history[currentDate|date('m/Y')] %}
+    {% endif %}
+    {# else %}
+        {% set currentMonth = 0 %}
+        {% set currentMonth = { 'positive':0, 'negative':0, 'count':0, 'diff_from_last_month_positive':0, 'diff_from_last_month_negative':0, 'diff_from_last_month_count':0 } %}
+    {% endif #}
+    <ul class="stat-boxes">
+        <li>
+            <div class="left peity_bar_good"><span>{% for month in history %}{{ month.positive }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{{ currentMonth.diff_from_last_month_positive }}%</div>
+            <div class="right">
+                <strong>{{ currentMonth.positive|number_format(0, '.', ' ') }} &euro;</strong>
+                Recettes
+            </div>
+        </li>
+        <li>
+            <div class="left peity_bar_bad"><span>{% for month in history %}{{ month.negative * (-1) }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{{ currentMonth.diff_from_last_month_negative }}%</div>
+            <div class="right">
+                <strong>{{ currentMonth.negative|number_format(0, '.', ' ') }} &euro;</strong>
+                Dépenses
+            </div>
+        </li>
+        <li>
+            <div class="left peity_bar_neutral"><span>{% for month in history %}{{ month.count }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{{ currentMonth.diff_from_last_month_count }}%</div>
+            <div class="right">
+                <strong>{{ currentMonth.count|number_format(0, '.', ' ') }}</strong>
+                Transactions
+            </div>
+        </li>
+        {#
+        <li>
+            <div class="left peity_line_good"><span><span style="display: none; ">12,6,9,23,14,10,17</span></span>+70%</div>
+            <div class="right">
+                <strong>8650</strong>
+                Orders
+            </div>
+        </li>#}
+    </ul>
+
+{% endif %}
+
+
+<div class="span8">
+
+    <h3>{{ currentDate|date('F') }}</h3>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Pointer</th>
+                <th>Date</th>
+                <th>Libelle</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trans in transactions %}
+                <tr class="{% if trans.amount > 0 %}success{% else %}error{% endif %}">
+                    <td class="check">
+                        <div class="btn-group" data-id="{{ trans.id }}">
+                            <button class="btn btn-small btn-primary pointer {% if trans.datepointer %}disabled{% endif %}" {% if trans.datepointer %}rel="tooltip" title="Pointé le {{ trans.datepointer|date('d/m/Y') }}."{% endif %}><i class="icon-ok"></i></button>
+                            <button class="btn btn-small btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="exclude"><i class="icon-ban-circle"></i> Ne pas prendre en compte</a></li>
+                                {#<li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>#}
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="date" rel="tooltip" data-placement="left" title="Transaction récupéré le {{ trans.datefetched|date('d/m/Y') }}.">
+                        {{ trans.datetransaction|date('d/m/Y') }}<br />
+                        <span class="label label-important" style="{% if trans.excluded == false %}display:none;{% endif %}">Exclue</span>
+                    </td>
+                    <td>{{ trans.label }}<br />
+                        {{ trans.label2 }}
+                    </td>
+                    <td class="amount">{{ trans.amount|number_format(2, '.', ' ') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Pas de transactions ce mois-ci.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a class="btn span6 offset1 getLastMonth" data-account="{{ account }}" data-year="{{ currentDate|date('Y') }}" data-month="{{ currentDate|date('m') }}"><i class="icon-refresh"></i>&nbsp;&nbsp;Charger le mois précédent ({{ currentDate|date('m-Y') }})</a>
