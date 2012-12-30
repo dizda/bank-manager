@@ -3,10 +3,10 @@ namespace Dizda\BankManager\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-use JMS\SerializerBundle\Annotation\XmlRoot;
-use JMS\SerializerBundle\Annotation\Type;
-use JMS\SerializerBundle\Annotation\SerializedName;
-use JMS\SerializerBundle\Annotation\Exclude;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @MongoDB\Document(repositoryClass="Dizda\BankManager\CoreBundle\Document\Repository\TransactionRepository")

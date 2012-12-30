@@ -1,3 +1,8 @@
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 dizda_bankmanager_site:
     resource: "@DizdaBankManagerSiteBundle/Controller/"
     type:     annotation

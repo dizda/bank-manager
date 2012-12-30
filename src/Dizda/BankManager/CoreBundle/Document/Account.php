@@ -3,10 +3,10 @@ namespace Dizda\BankManager\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-use JMS\SerializerBundle\Annotation\XmlRoot;
-use JMS\SerializerBundle\Annotation\Type;
-use JMS\SerializerBundle\Annotation\SerializedName;
-use JMS\SerializerBundle\Annotation\Exclude;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @MongoDB\Document
@@ -74,6 +74,11 @@ class Account
     /** @Exclude
      *  @MongoDB\EmbedMany(targetDocument="BalanceHistory") */
     private $balanceHistory = array();
+
+    /** @MongoDB\ReferenceOne(targetDocument="Dizda\BankManager\UserBundle\Document\User", inversedBy="accounts")
+     *  @MongoDB\Index
+     *  @Exclude */
+    protected $user;
     
 
     public function __construct()
@@ -384,5 +389,32 @@ class Account
     public function getBalanceHistory()
     {
         return $this->balanceHistory;
+    }
+
+    /**
+     * Set user
+     *
+     * @param Dizda\BankManager\UserBundle\Document\User $user
+     * @return Account
+     */
+    public function setUser(\Dizda\BankManager\UserBundle\Document\User $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return Dizda\BankManager\UserBundle\Document\User $user
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function __toString()
+    {
+        return $this->iban . ' - ' . $this->name;
     }
 }

@@ -3,7 +3,7 @@ namespace Dizda\BankManager\CoreBundle\Client;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\DiExtraBundle\Annotation\Service;
-use JMS\SerializerBundle\Serializer\Serializer;
+use JMS\Serializer\Serializer;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Dizda\BankManager\CoreBundle\Event\AccountEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;

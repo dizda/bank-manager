@@ -35,6 +35,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new Dizda\BankManager\SiteBundle\DizdaBankManagerSiteBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Dizda\BankManager\UserBundle\UserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
