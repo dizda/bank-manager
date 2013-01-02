@@ -44,7 +44,7 @@ class TransactionRepository extends DocumentRepository
                     //->field('date')->lte(new \DateTime()) /* (this.date.getMonth() + 1) cause javascript return 0 to 11 months */
                     ->field('excluded')->notEqual(true)
                     ->map('function() {
-                        emit( {month: ("0" + (this.date_transaction.getMonth() + 1)).slice(-2) + "/" + this.date_transaction.getFullYear() }, this.amount)
+                        emit( {month: this.date_transaction.getFullYear() + "/" + ("0" + (this.date_transaction.getMonth() + 1)).slice(-2) }, this.amount)
                     }')
                     ->reduce('function(k, v) {
                                 var i, positive = 0, negative = 0, count = 0;
@@ -112,13 +112,13 @@ class TransactionRepository extends DocumentRepository
             
         }
         
-        if(!isset($months[date('m/Y')]))
+        if(!isset($months[date('Y/m')]))
         {
-            $months[date('m/Y')] = [ 'positive' => 0,
+            $months[date('Y/m')] = [ 'positive' => 0,
                                      'negative' => 0,
                                      'count'    => 0 ];
             
-            $months = $this->diffCount($months, date('m/Y'), $previousMonth);
+            $months = $this->diffCount($months, date('Y/m'), $previousMonth);
         }
         
 

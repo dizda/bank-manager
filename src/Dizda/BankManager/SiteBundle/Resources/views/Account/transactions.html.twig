@@ -1,7 +1,7 @@
 {% if history is defined %}
 
-    {% if history[currentDate|date('m/Y')] is defined %}
-        {% set currentMonth = history[currentDate|date('m/Y')] %}
+    {% if history[currentDate|date('Y/m')] is defined %}
+        {% set currentMonth = history[currentDate|date('Y/m')] %}
     {% endif %}
     {# else %}
         {% set currentMonth = 0 %}
