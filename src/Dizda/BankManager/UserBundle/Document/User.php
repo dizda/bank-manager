@@ -17,6 +17,22 @@ class User extends BaseUser
      */
     protected $id;
 
+
+    /**
+     * Bank account login, to access webservices
+     *
+     * @MongoDB\String
+     */
+    protected $ws_login;
+
+    /**
+     * Bank account password, to access webservices
+     *
+     * @MongoDB\String
+     */
+    protected $ws_password;
+
+
     /**
      * @MongoDB\Date
      */
@@ -78,5 +94,49 @@ class User extends BaseUser
     public function getAccounts()
     {
         return $this->accounts;
+    }
+
+    /**
+     * Set ws_login
+     *
+     * @param string $wsLogin
+     * @return \User
+     */
+    public function setWsLogin($wsLogin)
+    {
+        $this->ws_login = $wsLogin;
+        return $this;
+    }
+
+    /**
+     * Get ws_login
+     *
+     * @return string $wsLogin
+     */
+    public function getWsLogin()
+    {
+        return $this->ws_login;
+    }
+
+    /**
+     * Set ws_password
+     *
+     * @param string $wsPassword
+     * @return \User
+     */
+    public function setWsPassword($wsPassword)
+    {
+        $this->ws_password = $wsPassword;
+        return $this;
+    }
+
+    /**
+     * Get ws_password
+     *
+     * @return string $wsPassword
+     */
+    public function getWsPassword()
+    {
+        return $this->ws_password;
     }
 }

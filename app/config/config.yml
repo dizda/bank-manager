@@ -65,7 +65,7 @@ swiftmailer:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [ DizdaBankManagerCoreBundle ]
+        bundles: [ DizdaBankManagerCoreBundle, UserBundle ]
         directories: ["%kernel.root_dir%/../src"]
         
 doctrine_mongodb:

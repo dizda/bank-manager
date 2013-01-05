@@ -8,8 +8,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder;
+use JMS\DiExtraBundle\Annotation as DI;
 
 use FOS\UserBundle\Model\UserManagerInterface;
+
 
 class UserAdmin extends Admin
 {
@@ -24,11 +26,11 @@ class UserAdmin extends Admin
         $listMapper
             ->addIdentifier('username')
             ->add('email')
+            ->add('ws_login')
+            //->add('accounts')
             ->add('enabled', 'boolean', array('editable' => true))
             ->add('locked', 'boolean', array('editable' => true))
-            /*->add('created_at')*/
-/*            ->add('sites')
-            ->add('sponsor')*/
+
         ;
 
 //        if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
@@ -54,6 +56,8 @@ class UserAdmin extends Admin
             ->with('General')
             ->add('username')
             ->add('email')
+            ->add('ws_login')
+            ->add('ws_password')
             ->add('plainPassword', 'text', array('required' => false))
         //->add('favorites')
             ->end()
@@ -70,8 +74,8 @@ class UserAdmin extends Admin
             ->add('credentialsExpired', 'checkbox', array('required' => false))
             ->end()
             ->with('Date')
-            ->add('created_at', 'datetime')
-            ->add('last_login', 'datetime')
+            ->add('created_at', 'datetime', array('disabled' => true))
+            ->add('last_login', 'datetime', array('disabled' => true))
             ->end()
             // ->with('Sites', array('collapsed' => true))
             //     ->add('sites', 'sonata_type_collection', array(), array(
@@ -89,6 +93,11 @@ class UserAdmin extends Admin
         $this->getUserManager()->updatePassword($user);
     }
 
+    /**
+     * @DI\InjectParams({
+     *     "userManager" = @DI\Inject("fos_user.user_manager")
+     * })
+     */
     public function setUserManager(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
