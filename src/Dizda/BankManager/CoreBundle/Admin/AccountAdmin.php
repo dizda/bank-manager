@@ -18,7 +18,6 @@ class AccountAdmin extends Admin
             ->add('webid')
             ->add('type')
             ->add('agreed_overdraft')
-            ->add('balanceHistory')
             //->add('enabled', null, array('required' => false))
         ;
     }
