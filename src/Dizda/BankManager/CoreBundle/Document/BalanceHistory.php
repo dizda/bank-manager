@@ -77,4 +77,9 @@ class BalanceHistory
     {
         return $this->date_fetched;
     }
+
+    public function __toString()
+    {
+        return $this->date_fetched->format('d/m/Y') . '       ' . $this->balance;
+    }
 }

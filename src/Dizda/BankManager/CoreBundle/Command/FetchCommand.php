@@ -48,7 +48,10 @@ class FetchCommand extends ContainerAwareCommand
                 continue;
             }
 
-            /* Otherwise, we store accounts & transactions */
+            /**
+             * Otherwise, we store accounts & transactions
+             * TODO: New user : ASSIGN AUTOMATICLY NEW ACCOUNT TO CURRENT USER
+             */
             if($client->getAccounts() && $client->getTransactions())
             {
                 $accounts = $this->getContainer()->get('dizda.bank.listener.account')->getStatsFetched();

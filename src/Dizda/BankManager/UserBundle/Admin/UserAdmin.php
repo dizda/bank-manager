@@ -67,7 +67,7 @@ class UserAdmin extends Admin
             ->with('Management')
         //->add('roles', 'sonata_security_roles', array( 'multiple' => true, 'required' => false))
         //->add('site_limit', 'integer')
-            ->add('accounts')
+            ->add('accounts', null, array('required' => false))
             ->add('locked', null, array('required' => false))
             ->add('expired', null, array('required' => false))
             ->add('enabled', null, array('required' => false))

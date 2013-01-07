@@ -35,4 +35,5 @@
         </a>
         </li>
     {% endfor %}
+    <li><a href="{{ path('admin_bankmanager_user_user_edit', { 'id':app.security.getToken().getUser().getId() } ) }}"><i class="icon-wrench"></i> Configuration</a></li>
 </ul>
