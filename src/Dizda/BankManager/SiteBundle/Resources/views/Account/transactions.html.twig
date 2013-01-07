@@ -89,4 +89,4 @@
     </table>
 </div>
 
-<a class="btn span6 offset1 getLastMonth" data-account="{{ account }}" data-year="{{ currentDate|date('Y') }}" data-month="{{ currentDate|date('m') }}"><i class="icon-refresh"></i>&nbsp;&nbsp;Charger le mois précédent ({{ currentDate|date('m-Y') }})</a>
+<a class="btn span6 offset1 getLastMonth" data-account="{{ account }}" data-year="{{ currentDate|date('Y') }}" data-month="{{ currentDate|date('m') }}"><i class="icon-refresh"></i>&nbsp;&nbsp;Charger le mois précédent ({{ previousMonth|date('m-Y') }})</a>

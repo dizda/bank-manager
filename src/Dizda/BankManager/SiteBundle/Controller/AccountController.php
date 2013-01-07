@@ -28,6 +28,7 @@ class AccountController extends CoreController
         return array('transactions' => $transactions,
                      'history'      => $history,
                      'currentDate'  => new \DateTime(),
+                     'previousMonth'=> (new \DateTime())->sub(new \DateInterval('P1M')),
                      'account'      => $account );
     }
 
