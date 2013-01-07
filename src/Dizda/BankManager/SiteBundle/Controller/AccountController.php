@@ -41,12 +41,14 @@ class AccountController extends CoreController
         $repo           = $this->getRepo('DizdaBankManagerCoreBundle:Transaction');
 
         $date           = (new \DateTime())->setDate($year, $month, 1)->sub(new \DateInterval('P1M'));
+        $previous       = clone $date;
 
         $transactions   = $repo->getMonthTransactions($account, $date);
 
 
         return array('transactions' => $transactions,
                      'account'      => $account,
+                     'previousMonth'=> $previous->sub(new \DateInterval('P1M')),
                      'currentDate'  => $date );
     }
 
