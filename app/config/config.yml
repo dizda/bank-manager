@@ -113,6 +113,11 @@ services:
             tags:
                 - { name: sonata.admin, manager_type: doctrine_mongodb, group: Account, label: User }
             arguments: [null, Dizda\BankManager\UserBundle\Document\User, UserBundle:UserAdmin]
+    dizda.bank.user.admin.options:
+            class: Dizda\BankManager\UserBundle\Admin\OptionsAdmin
+            tags:
+                - { name: sonata.admin, manager_type: doctrine_mongodb, group: Account, label: Options }
+            arguments: [null, Dizda\BankManager\UserBundle\Document\Options, UserBundle:OptionsAdmin]
         
 #    dizda.bank.menu.main:
 #        class: Knp\Menu\MenuItem # the service definition requires setting the class

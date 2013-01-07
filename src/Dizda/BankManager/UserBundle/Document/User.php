@@ -41,9 +41,16 @@ class User extends BaseUser
     /** @MongoDB\ReferenceMany(targetDocument="Dizda\BankManager\CoreBundle\Document\Account", mappedBy="user") */
     protected $accounts;
 
+    /** @MongoDB\EmbedOne(targetDocument="Dizda\BankManager\UserBundle\Document\Options") */
+    private $options;
+
+
     public function __construct()
     {
         $this->accounts = new \Doctrine\Common\Collections\ArrayCollection();
+        /*$this->options = new \Dizda\BankManager\UserBundle\Document\Options();
+        $this->options->setAlertAmount(300);*/
+
     }
     
     /**
@@ -138,5 +145,27 @@ class User extends BaseUser
     public function getWsPassword()
     {
         return $this->ws_password;
+    }
+
+    /**
+     * Set options
+     *
+     * @param Dizda\BankManager\UserBundle\Document\Options $options
+     * @return \User
+     */
+    public function setOptions(\Dizda\BankManager\UserBundle\Document\Options $options)
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+    /**
+     * Get options
+     *
+     * @return Dizda\BankManager\UserBundle\Document\Options $options
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

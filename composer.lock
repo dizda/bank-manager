@@ -1,6 +1,49 @@
 {
-    "hash": "c3860cd9d4638d663e78715749c8dbbf",
+    "hash": "c9cadd03910db4c186cf698c2ef6cbe1",
     "packages": [
+        {
+            "name": "benthedesigner/dropbox",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenTheDesigner/Dropbox",
+                "reference": "c6aa027a972239765b91c6966afb91c2baf54045"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/BenTheDesigner/Dropbox/archive/c6aa027a972239765b91c6966afb91c2baf54045.zip",
+                "reference": "c6aa027a972239765b91c6966afb91c2baf54045",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "time": "2013-01-03 09:27:14",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Dropbox": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Tadiar",
+                    "email": "ben@handcraftedbyben.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP 5.3 SDK for the Dropbox REST API",
+            "homepage": "https://github.com/BenTheDesigner/Dropbox",
+            "keywords": [
+                "api",
+                "dropbox"
+            ]
+        },
         {
             "name": "craue/formflow-bundle",
             "version": "dev-master",
@@ -2742,6 +2785,7 @@
         "mopa/bootstrap-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,
         "craue/formflow-bundle": 20,
-        "raulfraile/ladybug-bundle": 20
+        "raulfraile/ladybug-bundle": 20,
+        "benthedesigner/dropbox": 20
     }
 }
