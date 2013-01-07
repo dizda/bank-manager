@@ -71,8 +71,8 @@
                             </ul>
                         </div>
                     </td>
-                    <td class="date" rel="tooltip" data-placement="left" title="Transaction récupéré le {{ trans.datefetched|date('d/m/Y') }}.">
-                        {{ trans.datetransaction|date('d/m/Y') }}<br />
+                    <td class="date">
+                        <span rel="tooltip" data-placement="left" title="Transaction récupéré le {{ trans.datefetched|date('d/m/Y H:i') }}.">{{ trans.datetransaction|date('d/m/Y') }}</span><br />
                         <span class="label label-important" style="{% if trans.excluded == false %}display:none;{% endif %}">Exclue</span>
                     </td>
                     <td>{{ trans.label }}<br />
