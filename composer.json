@@ -30,7 +30,8 @@
         "knplabs/knp-paginator-bundle": "dev-master",
         "craue/formflow-bundle": "dev-master",
         "raulfraile/ladybug-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "*"
+        "friendsofsymfony/user-bundle": "*",
+        "dizda/cloud-backup-bundle": "dev-master"
     },
     "repositories": [
            {
