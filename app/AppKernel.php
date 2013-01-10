@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Dizda\BankManager\SiteBundle\DizdaBankManagerSiteBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Dizda\BankManager\UserBundle\UserBundle(),
+            new Dizda\CloudBackupBundle\DizdaCloudBackupBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -66,7 +66,7 @@ swiftmailer:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [ DizdaBankManagerCoreBundle, UserBundle ]
+        bundles: [ DizdaBankManagerCoreBundle, UserBundle, DizdaCloudBackupBundle ]
         directories: ["%kernel.root_dir%/../src"]
         
 doctrine_mongodb:
@@ -167,3 +167,16 @@ sonata_admin:
 #      filter: debug_only
 #      renderer: page
 #TEMPORARY
+
+
+dizda_cloud_backup:
+    cloud_storages:
+        dropbox:
+            user:     %dizda_cloud_dropbox_user%
+            password: %dizda_cloud_dropbox_password%
+        cloudapp:
+            user:     dfsf
+            password: sdf
+
+    databases:
+        mongodb: true
