@@ -89,6 +89,7 @@ class WsClient
         
         return true;
     }
+
     
     
     /* get transactions for each accounts */
