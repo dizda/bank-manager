@@ -174,9 +174,8 @@ dizda_cloud_backup:
         dropbox:
             user:     %dizda_cloud_dropbox_user%
             password: %dizda_cloud_dropbox_password%
-        cloudapp:
-            user:     dfsf
-            password: sdf
 
     databases:
-        mongodb: true
+        mongodb:
+            all_databases: false
+            database: creditmanager
