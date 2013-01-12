@@ -56,19 +56,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dizda/CloudBackupBundle",
-                "reference": "3e9084a5969fc3e1289882de1f0e1767ae3d0468"
+                "reference": "961bc8e6fbba74b54e44b96e4852070a0a65c40d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/dizda/CloudBackupBundle/archive/3e9084a5969fc3e1289882de1f0e1767ae3d0468.zip",
-                "reference": "3e9084a5969fc3e1289882de1f0e1767ae3d0468",
+                "url": "https://github.com/dizda/CloudBackupBundle/archive/961bc8e6fbba74b54e44b96e4852070a0a65c40d.zip",
+                "reference": "961bc8e6fbba74b54e44b96e4852070a0a65c40d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": ">=2.1,<2.3-dev"
             },
-            "time": "2013-01-11 12:53:29",
+            "time": "2013-01-12 00:16:59",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1380,12 +1380,12 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "1677147ed595899a024636194ffe6f0c0d7800b5"
+                "reference": "7f43630d18f5cb2c72a91dddd9c02228bb82f792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/archive/1677147ed595899a024636194ffe6f0c0d7800b5.zip",
-                "reference": "1677147ed595899a024636194ffe6f0c0d7800b5",
+                "url": "https://github.com/kriswallsmith/assetic/archive/7f43630d18f5cb2c72a91dddd9c02228bb82f792.zip",
+                "reference": "7f43630d18f5cb2c72a91dddd9c02228bb82f792",
                 "shasum": ""
             },
             "require": {
@@ -1397,7 +1397,11 @@
                 "leafo/lessphp": "*",
                 "leafo/scssphp": "*",
                 "ptachoire/cssembed": "*",
-                "leafo/scssphp-compass": "*"
+                "leafo/scssphp-compass": "*",
+                "cssmin/cssmin": "*",
+                "mrclay/minify": "*",
+                "kamicane/packager": "*",
+                "joliclic/javascript-packer": "*"
             },
             "suggest": {
                 "twig/twig": "Assetic provides the integration with the Twig templating engine",
@@ -1406,7 +1410,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "2013-01-11 14:41:50",
+            "time": "2013-01-11 23:08:21",
             "type": "library",
             "extra": {
                 "branch-alias": {
