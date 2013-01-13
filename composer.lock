@@ -56,19 +56,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dizda/CloudBackupBundle",
-                "reference": "9f1e7b5601cf7f5387a3dba6957ab99e7a8916c0"
+                "reference": "52b28962e73c43d97c7a749b8a9732beb788ae38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/dizda/CloudBackupBundle/archive/9f1e7b5601cf7f5387a3dba6957ab99e7a8916c0.zip",
-                "reference": "9f1e7b5601cf7f5387a3dba6957ab99e7a8916c0",
+                "url": "https://github.com/dizda/CloudBackupBundle/archive/52b28962e73c43d97c7a749b8a9732beb788ae38.zip",
+                "reference": "52b28962e73c43d97c7a749b8a9732beb788ae38",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": ">=2.1,<2.3-dev"
             },
-            "time": "2013-01-13 16:07:25",
+            "time": "2013-01-13 19:16:49",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -373,12 +373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "c4ff54835da02ec37879bcb014de3158b45203c6"
+                "reference": "9cd0670d04cba8c2f22d40e41ccba4556b7dc7b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/mongodb-odm/archive/c4ff54835da02ec37879bcb014de3158b45203c6.zip",
-                "reference": "c4ff54835da02ec37879bcb014de3158b45203c6",
+                "url": "https://github.com/doctrine/mongodb-odm/archive/9cd0670d04cba8c2f22d40e41ccba4556b7dc7b0.zip",
+                "reference": "9cd0670d04cba8c2f22d40e41ccba4556b7dc7b0",
                 "shasum": ""
             },
             "require": {
@@ -393,7 +393,7 @@
             "suggest": {
                 "symfony/yaml": "Enables the YAML metadata mapping driver"
             },
-            "time": "2013-01-02 17:32:31",
+            "time": "2013-01-13 18:22:48",
             "type": "library",
             "extra": {
                 "branch-alias": {
