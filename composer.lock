@@ -56,19 +56,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dizda/CloudBackupBundle",
-                "reference": "52b28962e73c43d97c7a749b8a9732beb788ae38"
+                "reference": "f8b2812b1efa7a7c76152f282ecc545a174ae345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/dizda/CloudBackupBundle/archive/52b28962e73c43d97c7a749b8a9732beb788ae38.zip",
-                "reference": "52b28962e73c43d97c7a749b8a9732beb788ae38",
+                "url": "https://github.com/dizda/CloudBackupBundle/archive/f8b2812b1efa7a7c76152f282ecc545a174ae345.zip",
+                "reference": "f8b2812b1efa7a7c76152f282ecc545a174ae345",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": ">=2.1,<2.3-dev"
             },
-            "time": "2013-01-13 19:16:49",
+            "time": "2013-01-13 20:05:49",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
