@@ -99,7 +99,7 @@ class AccountListener
                 if( !$this->dm->find('Dizda\BankManager\CoreBundle\Document\Transaction', $transaction->generateId()) )
                 {
                     $transaction->setAccount($accountEntity);
-                    //$this->dm->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
+                    $this->dm->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
                     $this->statsFetched[$key]['added']++;
                     $this->sendAlertEmail($transaction, $event->getUser());
                 }
