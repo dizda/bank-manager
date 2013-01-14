@@ -25,6 +25,20 @@ class AccountController extends CoreController
 
         $history        = $repo->compareLastMonths($account);
 
+
+
+        /*$graph  = $this->getRepo('DizdaBankManagerCoreBundle:Account')
+            ->getMonthTransactions($account, new \DateTime());
+
+        foreach($graph as $g)
+        {
+            foreach($g->getBalanceHistory() as $bal)
+            {
+                echo $bal->getBalance() . " " . $bal->getDateFetched()->format('Y-m-d') . "<br />";
+            }
+        }*/
+
+
         return array('transactions' => $transactions,
                      'history'      => $history,
                      'currentDate'  => new \DateTime(),

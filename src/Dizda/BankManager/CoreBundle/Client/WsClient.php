@@ -7,6 +7,7 @@ use JMS\Serializer\Serializer;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Dizda\BankManager\CoreBundle\Event\AccountEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Dizda\BankManager\UserBundle\Document\User;
 
 /**
  * @Service("dizda.bank.ws_client");
@@ -93,7 +94,7 @@ class WsClient
     
     
     /* get transactions for each accounts */
-    public function getTransactions()
+    public function getTransactions(User $user)
     {
         $this->postLogin = array( '_media'        => 'AN',
                                   '_wsversion'    => '1',
@@ -112,7 +113,7 @@ class WsClient
             
         }
         
-        $this->dispatcher->dispatch('dizda.bank.transaction.add', new AccountEvent(AccountEvent::TRANSACTIONS, $this->transactions));
+        $this->dispatcher->dispatch('dizda.bank.transaction.add', new AccountEvent(AccountEvent::TRANSACTIONS, $this->transactions, $user));
         
         return true;
     }

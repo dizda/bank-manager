@@ -9,6 +9,9 @@ use JMS\DiExtraBundle\Annotation\Tag;
 use JMS\DiExtraBundle\Annotation as DI;
 use Dizda\BankManager\CoreBundle\Document\BalanceHistory;
 
+use Dizda\BankManager\CoreBundle\Document\Transaction;
+use Dizda\BankManager\UserBundle\Document\User;
+
 /**
  * @Service("dizda.bank.listener.account");
  */
@@ -16,15 +19,21 @@ class AccountListener
 {
     protected $dm;
     protected $statsFetched = [];
+    private $push_user;
+    private $push_token;
 
     /**
      * @DI\InjectParams({
-     *     "dm"         = @DI\Inject("doctrine.odm.mongodb.document_manager")
+     *     "dm"         = @DI\Inject("doctrine.odm.mongodb.document_manager"),
+     *     "push_user"    = @DI\Inject("%pushover_user%"),
+     *     "push_token"   = @DI\Inject("%pushover_token%")
      * })
      */
-    public function __construct(DocumentManager $dm)
+    public function __construct(DocumentManager $dm, $push_user, $push_token)
     {
         $this->dm = $dm;
+        $this->push_user  = $push_user;
+        $this->push_token = $push_token;
     }
 
     
@@ -90,8 +99,9 @@ class AccountListener
                 if( !$this->dm->find('Dizda\BankManager\CoreBundle\Document\Transaction', $transaction->generateId()) )
                 {
                     $transaction->setAccount($accountEntity);
-                    $this->dm->persist($transaction);
+                    //$this->dm->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
                     $this->statsFetched[$key]['added']++;
+                    $this->sendAlertEmail($transaction, $event->getUser());
                 }
                 
                 $this->statsFetched[$key]['count']++;
@@ -102,7 +112,43 @@ class AccountListener
         
         //$event->getDispatcher()->dispatch('log', $event); // http://symfony.com/doc/master/components/event_dispatcher/introduction.html
     }
-    
+
+
+    /**
+     * If the amount of the transaction is larger than the AlertAmount Option,
+     * we send a mail !
+     *
+     * @param \Dizda\BankManager\CoreBundle\Document\Transaction $transaction
+     * @param \Dizda\BankManager\UserBundle\Document\User $user
+     */
+    public function sendAlertEmail(Transaction $transaction, User $user)
+    {
+        /**
+         * We concat user - to AlertAmount (ex. 50, to make -50)
+         * Because payments from bank arrive like this float(-51.5),
+         * So we have to transform our float(50) to float(-50)
+         * And the comparaison symbole ">" is now "<"
+         */
+        if(($transaction->getAmount() < (- $user->getOptions()->getAlertAmount())) && $user->getOptions()->getAllowEmail())
+        {
+            //var_dump($transaction->getAmount()); /* sending mail here ! an eventdispatcher ! */
+            curl_setopt_array($ch = curl_init(), array(
+                CURLOPT_URL   => "https://api.pushover.net/1/messages.json",
+                CURLOPT_POSTFIELDS => array(
+                    "token"   =>  $this->push_token,
+                    "user"    =>  $this->push_user,
+                    "message" => $transaction->getAmount() . "€ from account " . $transaction->getAccount()->getName() . "\n" .
+                                 "New solde " . $transaction->getAccount()->getBalance() . " (before " . $transaction->getAccount()->getBalanceHistory()->offsetGet($transaction->getAccount()->getBalanceHistory()->count() - 2)->getBalance() . ")\n" .
+                                 $transaction->getLabel() . "\n" .
+                                 $transaction->getLabel2() . "\n",
+                ))); /* offsetGet, obtain old balance to add in notification. count all balancehistory and get -2 */
+            curl_exec($ch);
+            curl_close($ch);
+        }
+    }
+
+
+
     public function getStatsFetched()
     {
         return $this->statsFetched;

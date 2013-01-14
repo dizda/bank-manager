@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Exclude;
 
 /**
- * @MongoDB\Document
+ * @MongoDB\Document(repositoryClass="Dizda\BankManager\CoreBundle\Document\Repository\AccountRepository")
  * @XmlRoot("compte") */
 class Account
 {
