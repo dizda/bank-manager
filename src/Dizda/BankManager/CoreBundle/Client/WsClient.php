@@ -35,8 +35,8 @@ class WsClient
                                          CURLOPT_FOLLOWLOCATION  => true,
                                          CURLOPT_USERAGENT       => 'AndroidVersion:4.0.4',
                                          CURLOPT_POST            => true,
-                                         CURLOPT_COOKIEFILE      => COOKIES_FILE,
-                                         CURLOPT_COOKIEJAR       => COOKIES_FILE );
+                                         CURLOPT_COOKIEFILE      => self::COOKIES_FILE,
+                                         CURLOPT_COOKIEJAR       => self::COOKIES_FILE );
     private $account            = [];
     private $transactions       = [];
 
