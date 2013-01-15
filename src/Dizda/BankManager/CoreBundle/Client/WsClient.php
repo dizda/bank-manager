@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Dizda\BankManager\CoreBundle\Event\AccountEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Dizda\BankManager\UserBundle\Document\User;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Service("dizda.bank.ws_client");
@@ -17,6 +18,7 @@ class WsClient
     const URL_LOGIN             = 'https://mobile.creditmutuel.fr/wsmobile/fr/IDE.html';        // POST
     const URL_GET_ACCOUNTS      = 'https://mobile.creditmutuel.fr/wsmobile/fr/PRC.html';        // POST
     const URL_LIST_OPERATIONS   = 'https://mobile.creditmutuel.fr/wsmobile/fr/LSTMVT.html';     // POST
+    const COOKIES_FILE          = '/tmp/cookie.txt';
     
     private $curl;
     private $serializer;
@@ -33,8 +35,8 @@ class WsClient
                                          CURLOPT_FOLLOWLOCATION  => true,
                                          CURLOPT_USERAGENT       => 'AndroidVersion:4.0.4',
                                          CURLOPT_POST            => true,
-                                         CURLOPT_COOKIEFILE      => "/tmp/cookie.txt",
-                                         CURLOPT_COOKIEJAR       => "/tmp/cookie.txt" );
+                                         CURLOPT_COOKIEFILE      => COOKIES_FILE,
+                                         CURLOPT_COOKIEJAR       => COOKIES_FILE );
     private $account            = [];
     private $transactions       = [];
 
@@ -139,7 +141,9 @@ class WsClient
     
     public function __destruct() {
         curl_close($this->curl);
-        file_put_contents(CURLOPT_COOKIEFILE, ''); /* we clean the cookies file, from the last session */
+
+        $file = new Filesystem();
+        $file->remove(static::COOKIES_FILE); /* we remove the cookies file, from the last session */
     }
     
 }
