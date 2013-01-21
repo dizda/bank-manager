@@ -19,7 +19,7 @@ class WsClient
     const URL_GET_ACCOUNTS      = 'https://mobile.creditmutuel.fr/wsmobile/fr/PRC.html';        // POST
     const URL_LIST_OPERATIONS   = 'https://mobile.creditmutuel.fr/wsmobile/fr/LSTMVT.html';     // POST
     const COOKIES_FILE          = '/tmp/cookie.txt';
-    
+
     private $curl;
     private $serializer;
     private $dispatcher;
@@ -29,7 +29,7 @@ class WsClient
                                          '_appversion'   => '2.0.4',
                                          '_cible'        => 'CM',
                                          '_wsversion'    => '2' ); // +1
-    
+
     private $options            = array( CURLOPT_HEADER          => true,
                                          CURLOPT_RETURNTRANSFER  => true,
                                          CURLOPT_FOLLOWLOCATION  => true,
@@ -40,7 +40,7 @@ class WsClient
     private $account            = [];
     private $transactions       = [];
 
-    
+
     /**
      * @DI\InjectParams({
      *     "serializer" = @DI\Inject("serializer"),

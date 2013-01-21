@@ -34,7 +34,7 @@ class TransactionRepository extends DocumentRepository
 
     public function compareLastMonths($account, $limitMonths = 6)
     {
-        $beginMonth = new \DateTime(date('Y-m-d',(mktime(0, 0, 0, date("m"), 1, date("Y") ))));
+        $beginMonth = new \DateTime(date('Y-m-d', (mktime(0, 0, 0, date("m"), 1, date("Y")))));
         $beginMonth = $beginMonth->sub(new \DateInterval('P'.$limitMonths.'M'));
 
         $qb = $this->createQueryBuilder('s')
@@ -49,14 +49,17 @@ class TransactionRepository extends DocumentRepository
                     ->reduce('function(k, v) {
                                 var i, positive = 0, negative = 0, count = 0;
                                 for (i in v) {
-                                  var value = parseFloat(v[i]);
-                                  if(value > 0)
-                                  {
-                                    positive += value;
-                                  }else{
-                                    negative += value;
-                                  }
-                                  count++;
+
+                                    var value = parseFloat(v[i]);
+                                    if(value > 0)
+                                    {
+                                        positive += value;
+                                    }else if(value < 0){
+                                        negative += value;
+                                    }
+                                    count++;
+
+
                                 }
                                 
                                 var reduced = {"positive":positive, "negative":negative, "count":count};
@@ -65,73 +68,66 @@ class TransactionRepository extends DocumentRepository
 
         $query = $qb->getQuery()
                     ->execute()->toArray();
-        
+
         $months         = [];
         $cpt            = 0;
         $previousMonth  = '';
-        
-        foreach($query as $month)
-        {
+
+        foreach ($query as $month) {
             $cpt++;
             $loopMonth = $month['_id']['month']; // string(7) "08/2012"
-            
-            if( is_array($month['value']) )
-            {
+
+            if ( is_array($month['value']) ) {
                 $months[$loopMonth] = [ 'positive' => $month['value']['positive'],
                                         'negative' => $month['value']['negative'],
                                         'count'    => $month['value']['count']];
-            }else{
+            } else {
                 $value = (float) $month['value'];
-                
-                if( $value > 0)
-                {
+
+                if ( $value > 0 ) {
                     $months[$loopMonth] = [ 'positive' => $value,
                                             'negative' => 0,
                                             'count'    => 1];
-                }else{
+                } else {
                     $months[$loopMonth] = [ 'positive' => 0,
                                             'negative' => $value,
                                             'count'    => 1];
                 }
-                
+
             }
-            
+
             /* calcul differance betweet current month & last month */
-            if( $cpt === 1 )
-            {
+            if ( $cpt === 1 ) {
                 $months[$loopMonth]['diff_from_last_month_positive'] = 0;
                 $months[$loopMonth]['diff_from_last_month_negative'] = 0;
                 $months[$loopMonth]['diff_from_last_month_count']    = 0;
-            }else{
+            } else {
 
                 /* we calculate the diff between last month and current month "evolution rate" */
                 $months = $this->diffCount($months, $loopMonth, $previousMonth);
             }
-            
+
             $previousMonth = $loopMonth;
-            
         }
-        
-        if(!isset($months[date('Y/m')]))
-        {
+
+        if (!isset($months[date('Y/m')])) {
             $months[date('Y/m')] = [ 'positive' => 0,
                                      'negative' => 0,
                                      'count'    => 0 ];
-            
+
             $months = $this->diffCount($months, date('Y/m'), $previousMonth);
         }
-        
 
 
 
         return $months;
     }
-    
-    
+
+
     private function diffCount($months, $loopMonth, $previousMonth)
     {
         /* we calculate the diff between last month and current month "evolution rate" */
-        if( $months[$previousMonth]['positive'] == 0 ) /* avoid the division by 0 */
+        if ( $months[$previousMonth]['positive'] == 0 ) /* avoid the division by 0 */
             $evolutionPositive  = $months[$loopMonth]['positive'];
         else
             $evolutionPositive  = (($months[$loopMonth]['positive'] - $months[$previousMonth]['positive']) / $months[$previousMonth]['positive']) * 100;
