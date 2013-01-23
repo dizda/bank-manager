@@ -87,20 +87,16 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
 
+#        sonata.admin_doctrine_orm.block.audit:
+#            contexts:   [admin]
+
         sonata.block.service.text:
-        sonata.block.service.action:
+        sonata.page.block.container:
+        sonata.page.block.children_pages:
         sonata.block.service.rss:
-    exception:
-        filters:
-          debug_only: sonata.block.exception.filter.debug_only
-        renderers:
-          page: sonata.block.exception.renderer.inline
-        default:
-          filter: debug_only
-          renderer: page
-    default_contexts:
-        filter: debug_only
-        renderer: page
+        sonata.media.block.media:
+        sonata.media.block.gallery:
+        sonata.media.block.feature_media:
           
 services:
     dizda.bank.core.admin.account:
@@ -130,9 +126,9 @@ services:
 
 
 fos_user:
-    db_driver: mongodb # other valid values are 'mongodb', 'couchdb' and 'propel'
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    user_class: Dizda\BankManager\UserBundle\Document\User
+    user_class: Dizda\BankManager\UserBundle\Entity\User
 
         
 sonata_admin:

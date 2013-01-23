@@ -1,6 +1,6 @@
 <?php
 
-namespace Dizda\BankManager\CoreBundle\Document\Repository;
+namespace Dizda\BankManager\CoreBundle\Document\MongoDB\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
 

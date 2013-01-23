@@ -22,7 +22,7 @@ class OptionsType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Dizda\BankManager\UserBundle\Document\Options',
+            'data_class' => 'Dizda\BankManager\UserBundle\Document\MongoDB\Options',
         );
     }
 

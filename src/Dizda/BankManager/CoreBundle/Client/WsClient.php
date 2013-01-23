@@ -7,7 +7,7 @@ use JMS\Serializer\Serializer;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Dizda\BankManager\CoreBundle\Event\AccountEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Dizda\BankManager\UserBundle\Document\User;
+use Dizda\BankManager\UserBundle\Document\MongoDB\User;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -84,7 +84,7 @@ class WsClient
         
         foreach($content->liste_compte->compte as $account)
         {
-            $this->account[(string) $account->iban] = $this->serializer->deserialize($account->asXML(), 'Dizda\BankManager\CoreBundle\Document\Account', 'xml');
+            $this->account[(string) $account->iban] = $this->serializer->deserialize($account->asXML(), 'Dizda\BankManager\CoreBundle\Document\MongoDB\Account', 'xml');
         }
         
         
@@ -110,7 +110,7 @@ class WsClient
             //die(var_dump($transactions));
             foreach($transactions->tabmvt->ligmvt as $transaction)
             {
-                $this->transactions[$account->getIban()][] = $this->serializer->deserialize($transaction->asXML(), 'Dizda\BankManager\CoreBundle\Document\Transaction', 'xml');
+                $this->transactions[$account->getIban()][] = $this->serializer->deserialize($transaction->asXML(), 'Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction', 'xml');
             }
             
         }

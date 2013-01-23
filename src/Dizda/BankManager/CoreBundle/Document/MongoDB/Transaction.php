@@ -1,5 +1,5 @@
 <?php
-namespace Dizda\BankManager\CoreBundle\Document;
+namespace Dizda\BankManager\CoreBundle\Document\MongoDB;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Exclude;
 
 /**
- * @MongoDB\Document(repositoryClass="Dizda\BankManager\CoreBundle\Document\Repository\TransactionRepository")
+ * @MongoDB\Document(repositoryClass="Dizda\BankManager\CoreBundle\Document\MongoDB\Repository\TransactionRepository")
  * @XmlRoot("ligmvt") */
 class Transaction
 {
@@ -217,7 +217,7 @@ class Transaction
      * @param Dizda\BankManager\CoreBundle\Document\Account $account
      * @return Transaction
      */
-    public function setAccount(\Dizda\BankManager\CoreBundle\Document\Account $account)
+    public function setAccount(\Dizda\BankManager\CoreBundle\Document\MongoDB\Account $account)
     {
         $this->account = $account;
         return $this;

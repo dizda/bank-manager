@@ -1,108 +1,111 @@
 <?php
-namespace Dizda\BankManager\CoreBundle\Document;
+namespace Dizda\BankManager\CoreBundle\Entity;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ORM\Mapping as ORM;
 
-use JMS\Serializer\Annotation\XmlRoot;
-use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\SerializedName;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as JMS;
 
 /**
- * @MongoDB\Document(repositoryClass="Dizda\BankManager\CoreBundle\Document\Repository\AccountRepository")
- * @XmlRoot("compte") */
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="account")
+ * @JMS\XmlRoot("compte")
+ */
 class Account
 {
-    /** @Type("string")
-     *  @MongoDB\Id(strategy="none") */
+
+    /** @JMS\Type("string")
+     *  @ORM\Id
+     *  @ORM\Column(type="string", length=50) */
     private $iban;
-    
-    /** @Type("string")
-     *  @SerializedName("devise")
-     *  @MongoDB\String */
+
+    /** @JMS\Type("string")
+     *  @JMS\SerializedName("devise")
+     *  @ORM\Column(type="string", length=10) */
     private $currency;
-    
-    /** @Type("string")
-     *  @SerializedName("account_number")
-     *  @MongoDB\String */
+
+    /** @JMS\Type("string")
+     *  @JMS\SerializedName("account_number")
+     *  @ORM\Column(type="string", length=50) */
     private $number;
-    
-    /** @Type("string")
-     *  @SerializedName("intc")
-     *  @MongoDB\String */
+
+    /** @JMS\Type("string")
+     *  @JMS\SerializedName("intc")
+     *  @ORM\Column(type="string", length=70) */
     private $name;
-    
-    /** @Type("string")
-     *  @SerializedName("int")
-     *  @MongoDB\String */
+
+    /** @JMS\Type("string")
+     *  @JMS\SerializedName("int")
+     *  @ORM\Column(type="string", length=50) */
     private $type;
-    
-    /** @Type("string") 
-     *  @SerializedName("tit")
-     *  @MongoDB\String */
+
+    /** @JMS\Type("string")
+     *  @JMS\SerializedName("tit")
+     *  @ORM\Column(type="string", length=50) */
     private $owner;
-    
-    /** @Type("double")
-     *  @SerializedName("solde")
-     *  @MongoDB\Float */
+
+    /** @JMS\Type("double")
+     *  @JMS\SerializedName("solde")
+     *  @ORM\Column(type="decimal", scale=2) */
     private $balance;
-    
-    /** @Type("double")
-     *  @MongoDB\Float */
+
+    /** @JMS\Type("double")
+     *  @ORM\Column(type="decimal", scale=2) */
     private $agreed_overdraft;
-    
-    /** @Type("integer")
-     *  @MongoDB\Int */
+
+    /** @JMS\Type("integer")
+     *  @ORM\Column(type="smallint", length=2) */
     private $appcpt;
-    
-    /** @Type("string")
-     *  @MongoDB\String */
+
+    /** @JMS\Type("string")
+     *  @ORM\Column(type="string", length=100) */
     private $webid;
-    
-    /** @Type("integer")
-     *  @MongoDB\Int */
+
+    /** @JMS\Type("integer")
+     *  @ORM\Column(type="smallint", length=2) */
     private $characteristics;
-    
-    /** @Type("integer")
-     *  @MongoDB\Int */
+
+    /** @JMS\Type("integer")
+     *  @ORM\Column(type="smallint", length=1) */
     private $simulation;
-    
-    /** @Exclude
-     *  @MongoDB\ReferenceMany(targetDocument="Dizda\BankManager\CoreBundle\Document\Transaction", mappedBy="account") */
+
+    /**
+     * @JMS\Exclude
+     * @ORM\OneToMany(targetEntity="Dizda\BankManager\CoreBundle\Entity\Transaction", mappedBy="account")
+     */
     protected $transactions;
-    
-    /** @Exclude
-     *  @MongoDB\EmbedMany(targetDocument="BalanceHistory") */
+
+    /**
+     * @JMS\Exclude
+     * @ORM\OneToMany(targetEntity="Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory", mappedBy="account")
+     */
     private $balanceHistory = array();
 
-    /** @MongoDB\ReferenceOne(targetDocument="Dizda\BankManager\UserBundle\Document\User", inversedBy="accounts")
-     *  @MongoDB\Index
-     *  @Exclude */
+    /** @ORM\ManyToOne(targetEntity="Dizda\BankManager\UserBundle\Entity\User")
+     *  @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     *  @JMS\Exclude */
     protected $user;
-    
 
-    public function __construct()
-    {
-        $this->transactions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->balanceHistory = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
+
+
     /**
      * Set iban
      *
-     * @param custom_id $iban
+     * @param string $iban
      * @return Account
      */
     public function setIban($iban)
     {
         $this->iban = $iban;
+    
         return $this;
     }
 
     /**
      * Get iban
      *
-     * @return custom_id $iban
+     * @return string 
      */
     public function getIban()
     {
@@ -118,13 +121,14 @@ class Account
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    
         return $this;
     }
 
     /**
      * Get currency
      *
-     * @return string $currency
+     * @return string 
      */
     public function getCurrency()
     {
@@ -140,13 +144,14 @@ class Account
     public function setNumber($number)
     {
         $this->number = $number;
+    
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return string $number
+     * @return string 
      */
     public function getNumber()
     {
@@ -162,13 +167,14 @@ class Account
     public function setName($name)
     {
         $this->name = $name;
+    
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string $name
+     * @return string 
      */
     public function getName()
     {
@@ -184,13 +190,14 @@ class Account
     public function setType($type)
     {
         $this->type = $type;
+    
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string $type
+     * @return string 
      */
     public function getType()
     {
@@ -206,13 +213,14 @@ class Account
     public function setOwner($owner)
     {
         $this->owner = $owner;
+    
         return $this;
     }
 
     /**
      * Get owner
      *
-     * @return string $owner
+     * @return string 
      */
     public function getOwner()
     {
@@ -228,13 +236,14 @@ class Account
     public function setBalance($balance)
     {
         $this->balance = $balance;
+    
         return $this;
     }
 
     /**
      * Get balance
      *
-     * @return float $balance
+     * @return float 
      */
     public function getBalance()
     {
@@ -250,13 +259,14 @@ class Account
     public function setAgreedOverdraft($agreedOverdraft)
     {
         $this->agreed_overdraft = $agreedOverdraft;
+    
         return $this;
     }
 
     /**
      * Get agreed_overdraft
      *
-     * @return float $agreedOverdraft
+     * @return float 
      */
     public function getAgreedOverdraft()
     {
@@ -266,19 +276,20 @@ class Account
     /**
      * Set appcpt
      *
-     * @param int $appcpt
+     * @param integer $appcpt
      * @return Account
      */
     public function setAppcpt($appcpt)
     {
         $this->appcpt = $appcpt;
+    
         return $this;
     }
 
     /**
      * Get appcpt
      *
-     * @return int $appcpt
+     * @return integer 
      */
     public function getAppcpt()
     {
@@ -294,13 +305,14 @@ class Account
     public function setWebid($webid)
     {
         $this->webid = $webid;
+    
         return $this;
     }
 
     /**
      * Get webid
      *
-     * @return string $webid
+     * @return string 
      */
     public function getWebid()
     {
@@ -310,19 +322,20 @@ class Account
     /**
      * Set characteristics
      *
-     * @param int $characteristics
+     * @param integer $characteristics
      * @return Account
      */
     public function setCharacteristics($characteristics)
     {
         $this->characteristics = $characteristics;
+    
         return $this;
     }
 
     /**
      * Get characteristics
      *
-     * @return int $characteristics
+     * @return integer 
      */
     public function getCharacteristics()
     {
@@ -332,19 +345,20 @@ class Account
     /**
      * Set simulation
      *
-     * @param int $simulation
+     * @param integer $simulation
      * @return Account
      */
     public function setSimulation($simulation)
     {
         $this->simulation = $simulation;
+    
         return $this;
     }
 
     /**
      * Get simulation
      *
-     * @return int $simulation
+     * @return integer 
      */
     public function getSimulation()
     {
@@ -352,19 +366,62 @@ class Account
     }
 
     /**
+     * Set user
+     *
+     * @param \Dizda\BankManager\UserBundle\Entity\User $user
+     * @return Account
+     */
+    public function setUser(\Dizda\BankManager\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Dizda\BankManager\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->transactions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
      * Add transactions
      *
-     * @param Dizda\BankManager\CoreBundle\Document\Transaction $transactions
+     * @param \Dizda\BankManager\CoreBundle\Entity\Transaction $transactions
+     * @return Account
      */
-    public function addTransactions(\Dizda\BankManager\CoreBundle\Document\Transaction $transactions)
+    public function addTransaction(\Dizda\BankManager\CoreBundle\Entity\Transaction $transactions)
     {
         $this->transactions[] = $transactions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove transactions
+     *
+     * @param \Dizda\BankManager\CoreBundle\Entity\Transaction $transactions
+     */
+    public function removeTransaction(\Dizda\BankManager\CoreBundle\Entity\Transaction $transactions)
+    {
+        $this->transactions->removeElement($transactions);
     }
 
     /**
      * Get transactions
      *
-     * @return Doctrine\Common\Collections\Collection $transactions
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getTransactions()
     {
@@ -374,47 +431,33 @@ class Account
     /**
      * Add balanceHistory
      *
-     * @param Dizda\BankManager\CoreBundle\Document\BalanceHistory $balanceHistory
+     * @param \Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory $balanceHistory
+     * @return Account
      */
-    public function addBalanceHistory(\Dizda\BankManager\CoreBundle\Document\BalanceHistory $balanceHistory)
+    public function addBalanceHistory(\Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory $balanceHistory)
     {
         $this->balanceHistory[] = $balanceHistory;
+    
+        return $this;
+    }
+
+    /**
+     * Remove balanceHistory
+     *
+     * @param \Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory $balanceHistory
+     */
+    public function removeBalanceHistory(\Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory $balanceHistory)
+    {
+        $this->balanceHistory->removeElement($balanceHistory);
     }
 
     /**
      * Get balanceHistory
      *
-     * @return Doctrine\Common\Collections\Collection $balanceHistory
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getBalanceHistory()
     {
         return $this->balanceHistory;
-    }
-
-    /**
-     * Set user
-     *
-     * @param Dizda\BankManager\UserBundle\Document\User $user
-     * @return Account
-     */
-    public function setUser(\Dizda\BankManager\UserBundle\Document\User $user)
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return Dizda\BankManager\UserBundle\Document\User $user
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function __toString()
-    {
-        return $this->iban . ' - ' . $this->name;
     }
 }

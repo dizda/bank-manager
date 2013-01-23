@@ -1,5 +1,5 @@
 <?php
-namespace Dizda\BankManager\CoreBundle\Document;
+namespace Dizda\BankManager\CoreBundle\Document\MongoDB;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 

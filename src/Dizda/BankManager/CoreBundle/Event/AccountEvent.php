@@ -3,7 +3,7 @@ namespace Dizda\BankManager\CoreBundle\Event;
 
 
 use Symfony\Component\EventDispatcher\Event;
-use Dizda\BankManager\UserBundle\Document\User;
+use Dizda\BankManager\UserBundle\Document\MongoDB\User;
 
 
 class AccountEvent extends Event

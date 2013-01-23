@@ -7,10 +7,10 @@ use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Observe;
 use JMS\DiExtraBundle\Annotation\Tag;
 use JMS\DiExtraBundle\Annotation as DI;
-use Dizda\BankManager\CoreBundle\Document\BalanceHistory;
+use Dizda\BankManager\CoreBundle\Document\MongoDB\BalanceHistory;
 
-use Dizda\BankManager\CoreBundle\Document\Transaction;
-use Dizda\BankManager\UserBundle\Document\User;
+use Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction;
+use Dizda\BankManager\UserBundle\Document\MongoDB\User;
 
 /**
  * @Service("dizda.bank.listener.account");
@@ -88,7 +88,7 @@ class AccountListener
     {
         foreach($event->getTransactions() as $key => $account)
         {
-            $accountEntity = $this->dm->find('Dizda\BankManager\CoreBundle\Document\Account', $key);
+            $accountEntity = $this->dm->find('Dizda\BankManager\CoreBundle\Document\MongoDB\Account', $key);
             $this->statsFetched[$key]['count'] = 0;
             $this->statsFetched[$key]['added'] = 0;
             
@@ -96,7 +96,7 @@ class AccountListener
             {
                 
                 /* If the transaction is already created, we dont overwrite it */
-                if( !$this->dm->find('Dizda\BankManager\CoreBundle\Document\Transaction', $transaction->generateId()) )
+                if( !$this->dm->find('Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction', $transaction->generateId()) )
                 {
                     $transaction->setAccount($accountEntity);
                     $this->dm->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
