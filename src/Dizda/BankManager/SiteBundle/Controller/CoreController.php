@@ -6,21 +6,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CoreController extends Controller
 {
-    protected $dm;
+    protected $em;
 
-    protected function getDm()
+    protected function getEm()
     {
-        if(!$this->dm)
+        if(!$this->em)
         {
-            $this->dm = $this->get('doctrine.odm.mongodb.document_manager');
-            return $this->dm;
+            $this->em = $this->get('doctrine.orm.entity_manager');
+            return $this->em;
         }else{
-            return $this->dm;
+            return $this->em;
         }
     }
     
     protected function getRepo($repository)
     {
-        return $this->getDm()->getRepository($repository);
+        return $this->getEm()->getRepository($repository);
     }
 }

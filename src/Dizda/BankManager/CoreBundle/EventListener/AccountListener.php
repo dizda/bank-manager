@@ -2,36 +2,36 @@
 namespace Dizda\BankManager\CoreBundle\EventListener;
 
 use Dizda\BankManager\CoreBundle\Event\AccountEvent;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManager;
 use JMS\DiExtraBundle\Annotation\Service;
 use JMS\DiExtraBundle\Annotation\Observe;
 use JMS\DiExtraBundle\Annotation\Tag;
 use JMS\DiExtraBundle\Annotation as DI;
-use Dizda\BankManager\CoreBundle\Document\MongoDB\BalanceHistory;
+use Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory;
 
-use Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction;
-use Dizda\BankManager\UserBundle\Document\MongoDB\User;
+use Dizda\BankManager\CoreBundle\Entity\Transaction;
+use Dizda\BankManager\UserBundle\Entity\User;
 
 /**
  * @Service("dizda.bank.listener.account");
  */
 class AccountListener
 {
-    protected $dm;
+    protected $em;
     protected $statsFetched = [];
     private $push_user;
     private $push_token;
 
     /**
      * @DI\InjectParams({
-     *     "dm"         = @DI\Inject("doctrine.odm.mongodb.document_manager"),
+     *     "em"           = @DI\Inject("doctrine.orm.entity_manager"),
      *     "push_user"    = @DI\Inject("%pushover_user%"),
      *     "push_token"   = @DI\Inject("%pushover_token%")
      * })
      */
-    public function __construct(DocumentManager $dm, $push_user, $push_token)
+    public function __construct(EntityManager $em, $push_user, $push_token)
     {
-        $this->dm = $dm;
+        $this->em = $em;
         $this->push_user  = $push_user;
         $this->push_token = $push_token;
     }
@@ -39,77 +39,76 @@ class AccountListener
     
     /**
      * Save accounts array into MongoDB
+     *
      * @Observe("dizda.bank.account.update")
      */
     public function onAccountEvent(AccountEvent $event)
     {
-        foreach($event->getAccounts() as $account)
-        {
-            $exist = $this->dm->find('DizdaBankManagerCoreBundle:Account', $account->getIban());
+        foreach ($event->getAccounts() as $account) {
+            $exist = $this->em->find('DizdaBankManagerCoreBundle:Account', $account->getIban());
 
-            if($exist)
-            {
-                $balance = $exist->getBalanceHistory()->last();
+            if ($exist) {
+                $lastBalance = $exist->getBalanceHistory()->last();
 
-                if(!$balance)
-                {
-                    $balance = new BalanceHistory();
-                    $balance->setBalance($account->getBalance());
 
-                    $exist->addBalanceHistory($balance);
-                    $this->dm->persist($exist);
-                }else{
+                if (!$lastBalance) {
+                    $newBalance = new AccountBalanceHistory();
+                    $newBalance->setBalance($account->getBalance());
 
-                    if($balance->getBalance() != $account->getBalance())
-                    {
-                        $balance = new BalanceHistory();
-                        $balance->setBalance($account->getBalance());
+                    $exist->addBalanceHistory($newBalance);
+                    $this->em->persist($exist);
+                } else {
+
+                    if ($lastBalance->getBalance() != $account->getBalance()) {
+
+                        $lastBalance = new AccountBalanceHistory();
+                        $lastBalance->setBalance($account->getBalance());
 
                         $exist->setBalance($account->getBalance());
-                        $exist->addBalanceHistory($balance);
-                        $this->dm->persist($exist);
+                        $exist->addBalanceHistory($lastBalance);
+                        $this->em->persist($exist);
                     }
 
                 }
 
-            }else{
-                $this->dm->persist($account);
+            } else {
+                $account->setUser($event->getUser());
+                $this->em->persist($account);
             }
 
 
         }
-        $this->dm->flush();
+        $this->em->flush();
     }
     
     /**
+     * Compare every transactions, and save them if they not exist
+     *
      * @Observe("dizda.bank.transaction.add")
      */
     public function onTransactionAddEvent(AccountEvent $event)
     {
-        foreach($event->getTransactions() as $key => $account)
-        {
-            $accountEntity = $this->dm->find('Dizda\BankManager\CoreBundle\Document\MongoDB\Account', $key);
+        foreach ($event->getTransactions() as $key => $account) {
+            $accountEntity = $this->em->find('Dizda\BankManager\CoreBundle\Entity\Account', $key);
             $this->statsFetched[$key]['count'] = 0;
             $this->statsFetched[$key]['added'] = 0;
-            
-            foreach($account as $transaction)
-            {
-                
+
+            foreach ($account as $transaction) {
+
                 /* If the transaction is already created, we dont overwrite it */
-                if( !$this->dm->find('Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction', $transaction->generateId()) )
-                {
+                if ( !$this->em->find('Dizda\BankManager\CoreBundle\Entity\Transaction', $transaction->generateId()) ) {
                     $transaction->setAccount($accountEntity);
-                    $this->dm->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
+                    $this->em->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
                     $this->statsFetched[$key]['added']++;
-                    $this->sendAlertEmail($transaction, $event->getUser());
+                    //$this->sendAlertEmail($transaction, $event->getUser());
                 }
-                
+
                 $this->statsFetched[$key]['count']++;
-                
+
             }
         }
-        $this->dm->flush();
-        
+        $this->em->flush();
+
         //$event->getDispatcher()->dispatch('log', $event); // http://symfony.com/doc/master/components/event_dispatcher/introduction.html
     }
 
@@ -129,8 +128,7 @@ class AccountListener
          * So we have to transform our float(50) to float(-50)
          * And the comparaison symbole ">" is now "<"
          */
-        if(($transaction->getAmount() < (- $user->getOptions()->getAlertAmount())) && $user->getOptions()->getAllowEmail())
-        {
+        if (($transaction->getAmount() < (- $user->getOptions()->getAlertAmount())) && $user->getOptions()->getAllowEmail()) {
             //var_dump($transaction->getAmount()); /* sending mail here ! an eventdispatcher ! */
             curl_setopt_array($ch = curl_init(), array(
                 CURLOPT_URL   => "https://api.pushover.net/1/messages.json",

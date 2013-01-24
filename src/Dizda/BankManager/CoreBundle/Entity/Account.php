@@ -77,7 +77,7 @@ class Account
 
     /**
      * @JMS\Exclude
-     * @ORM\OneToMany(targetEntity="Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory", mappedBy="account")
+     * @ORM\OneToMany(targetEntity="Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory", mappedBy="account", cascade={"persist"})
      */
     private $balanceHistory = array();
 
@@ -436,6 +436,7 @@ class Account
      */
     public function addBalanceHistory(\Dizda\BankManager\CoreBundle\Entity\AccountBalanceHistory $balanceHistory)
     {
+        $balanceHistory->setAccount($this); // set balance to the current user
         $this->balanceHistory[] = $balanceHistory;
     
         return $this;

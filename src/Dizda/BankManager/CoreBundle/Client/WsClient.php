@@ -7,7 +7,7 @@ use JMS\Serializer\Serializer;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Dizda\BankManager\CoreBundle\Event\AccountEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Dizda\BankManager\UserBundle\Document\MongoDB\User;
+use Dizda\BankManager\UserBundle\Entity\User;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -52,49 +52,45 @@ class WsClient
         $this->curl         = curl_init();
         $this->serializer   = $serializer;
         $this->dispatcher   = $dispatcher;
-        
+
         curl_setopt_array($this->curl, $this->options);
-        
-        
+
     }
-    
+
     public function login($user, $pass)
     {
         $this->postLogin['_cm_user'] = $user;
         $this->postLogin['_cm_pwd']  = $pass;
-        
+
         curl_setopt($this->curl, CURLOPT_URL, self::URL_LOGIN);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->postLogin);
-        
+
         curl_exec($this->curl);
-        
-        if(curl_getinfo($this->curl, CURLINFO_HTTP_CODE) == 200)
+
+        if (curl_getinfo($this->curl, CURLINFO_HTTP_CODE) == 200) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
-    
-    public function getAccounts()
+
+    public function getAccounts(User $user)
     {
         $this->postLogin = array( '_media'        => 'AN',
                                   '_wsversion'    => '2' );  // overwrite the postfields, delete logins informations like android does
-       
-        
+
         $content = $this->execCurlParseXML(self::URL_GET_ACCOUNTS);
-        
-        foreach($content->liste_compte->compte as $account)
-        {
-            $this->account[(string) $account->iban] = $this->serializer->deserialize($account->asXML(), 'Dizda\BankManager\CoreBundle\Document\MongoDB\Account', 'xml');
+
+        foreach ($content->liste_compte->compte as $account) {
+            $this->account[(string) $account->iban] = $this->serializer->deserialize($account->asXML(), 'Dizda\BankManager\CoreBundle\Entity\Account', 'xml');
         }
-        
-        
-        $this->dispatcher->dispatch('dizda.bank.account.update', new AccountEvent(AccountEvent::ACCOUNTS, $this->account));
-        
+
+        $this->dispatcher->dispatch('dizda.bank.account.update', new AccountEvent(AccountEvent::ACCOUNTS, $this->account, $user));
+
         return true;
     }
 
-    
-    
+
     /* get transactions for each accounts */
     public function getTransactions(User $user)
     {
@@ -102,21 +98,19 @@ class WsClient
                                   '_wsversion'    => '1',
                                   'Devise'        => 'EUR' );
 
-        foreach($this->account as $account)
-        {
+        foreach ($this->account as $account) {
             $this->postLogin['IBAN'] = $account->getIban();
-            
+
             $transactions = $this->execCurlParseXML(self::URL_LIST_OPERATIONS);
             //die(var_dump($transactions));
-            foreach($transactions->tabmvt->ligmvt as $transaction)
-            {
-                $this->transactions[$account->getIban()][] = $this->serializer->deserialize($transaction->asXML(), 'Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction', 'xml');
+            foreach ($transactions->tabmvt->ligmvt as $transaction) {
+                $this->transactions[$account->getIban()][] = $this->serializer->deserialize($transaction->asXML(), 'Dizda\BankManager\CoreBundle\Entity\Transaction', 'xml');
             }
-            
+
         }
-        
+
         $this->dispatcher->dispatch('dizda.bank.transaction.add', new AccountEvent(AccountEvent::TRANSACTIONS, $this->transactions, $user));
-        
+
         return true;
     }
     
@@ -129,21 +123,22 @@ class WsClient
     {
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->postLogin);
-        
+
         //$content = explode("\n", curl_exec($this->curl));
         $content = curl_exec($this->curl);
         $content = substr($content, strpos($content, '<?xml'));
-        
+
         $content = new \SimpleXMLElement($content);
-        
+
         return $content;
     }
-    
-    public function __destruct() {
+
+    public function __destruct()
+    {
         curl_close($this->curl);
 
         $file = new Filesystem();
         $file->remove(static::COOKIES_FILE); /* we remove the cookies file, from the last session */
     }
-    
+
 }

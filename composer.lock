@@ -1,5 +1,5 @@
 {
-    "hash": "9dbbeb22aa2bd0b5abde57d1cb9360e4",
+    "hash": "0c8c5b3634655479cd20416c1c507673",
     "packages": [
         {
             "name": "craue/formflow-bundle",
@@ -56,19 +56,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dizda/CloudBackupBundle",
-                "reference": "3a2d994aec5071d6fe41dadea24a9c8adbbc211e"
+                "reference": "522101b80e51296d9199b5c23a24f5366203975d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/dizda/CloudBackupBundle/archive/3a2d994aec5071d6fe41dadea24a9c8adbbc211e.zip",
-                "reference": "3a2d994aec5071d6fe41dadea24a9c8adbbc211e",
+                "url": "https://github.com/dizda/CloudBackupBundle/archive/522101b80e51296d9199b5c23a24f5366203975d.zip",
+                "reference": "522101b80e51296d9199b5c23a24f5366203975d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "symfony/framework-bundle": ">=2.1,<2.3-dev"
             },
-            "time": "2013-01-23 20:56:13",
+            "time": "2013-01-24 21:43:25",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -752,12 +752,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSDiExtraBundle",
-                "reference": "1d17b6cabd914b84a7a386458ff82f6f8a5e7142"
+                "reference": "1.3.0-alpha"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/JMSDiExtraBundle/archive/1d17b6cabd914b84a7a386458ff82f6f8a5e7142.zip",
-                "reference": "1d17b6cabd914b84a7a386458ff82f6f8a5e7142",
+                "url": "https://github.com/schmittjoh/JMSDiExtraBundle/archive/1.3.0-alpha.zip",
+                "reference": "1.3.0-alpha",
                 "shasum": ""
             },
             "require": {
@@ -781,7 +781,7 @@
                 "doctrine/orm": "*",
                 "phpcollection/phpcollection": ">=0.1,<0.3-dev"
             },
-            "time": "2013-01-06 00:20:23",
+            "time": "2013-01-24 07:44:32",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -906,12 +906,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSecurityExtraBundle",
-                "reference": "08e0b4674e02d3e62d9caf1545a0c776816000ea"
+                "reference": "1.4.0-alpha"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/JMSSecurityExtraBundle/archive/08e0b4674e02d3e62d9caf1545a0c776816000ea.zip",
-                "reference": "08e0b4674e02d3e62d9caf1545a0c776816000ea",
+                "url": "https://github.com/schmittjoh/JMSSecurityExtraBundle/archive/1.4.0-alpha.zip",
+                "reference": "1.4.0-alpha",
                 "shasum": ""
             },
             "require": {
@@ -976,12 +976,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/schmittjoh/serializer",
-                "reference": "68b5a27518d22188f6f42afaf7fc821419841f49"
+                "reference": "b491427df28d1992997f78ab80a34a163ac6552c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/serializer/archive/68b5a27518d22188f6f42afaf7fc821419841f49.zip",
-                "reference": "68b5a27518d22188f6f42afaf7fc821419841f49",
+                "url": "https://github.com/schmittjoh/serializer/archive/b491427df28d1992997f78ab80a34a163ac6552c.zip",
+                "reference": "b491427df28d1992997f78ab80a34a163ac6552c",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +1003,7 @@
             "suggest": {
                 "symfony/yaml": "Required if you'd like to serialize data to YAML format."
             },
-            "time": "2013-01-22 10:24:33",
+            "time": "2013-01-24 21:54:46",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1908,12 +1908,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "01f1cf12e44e1f79fbf93c8a090902840f475d79"
+                "reference": "25e5892ce956c4c50bcc17e75d78b8084d49894a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sonata-project/SonataAdminBundle/archive/01f1cf12e44e1f79fbf93c8a090902840f475d79.zip",
-                "reference": "01f1cf12e44e1f79fbf93c8a090902840f475d79",
+                "url": "https://github.com/sonata-project/SonataAdminBundle/archive/25e5892ce956c4c50bcc17e75d78b8084d49894a.zip",
+                "reference": "25e5892ce956c4c50bcc17e75d78b8084d49894a",
                 "shasum": ""
             },
             "require": {
@@ -1938,7 +1938,7 @@
                 "sonata-project/doctrine-orm-admin-bundle": "dev-master",
                 "sonata-project/intl-bundle": "dev-master"
             },
-            "time": "2013-01-23 19:30:35",
+            "time": "2013-01-24 11:51:06",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
@@ -2086,30 +2086,30 @@
             ]
         },
         {
-            "name": "sonata-project/doctrine-mongodb-admin-bundle",
+            "name": "sonata-project/doctrine-orm-admin-bundle",
             "version": "dev-master",
-            "target-dir": "Sonata/DoctrineMongoDBAdminBundle",
+            "target-dir": "Sonata/DoctrineORMAdminBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sonata-project/SonataDoctrineMongoDBAdminBundle.git",
-                "reference": "1cfecabcd4c3d26db5edde5883408d98b6fb07c6"
+                "url": "git://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
+                "reference": "447c78f3f0697f203efdd44304f4d82389416c05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sonata-project/SonataDoctrineMongoDBAdminBundle/archive/1cfecabcd4c3d26db5edde5883408d98b6fb07c6.zip",
-                "reference": "1cfecabcd4c3d26db5edde5883408d98b6fb07c6",
+                "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle/archive/447c78f3f0697f203efdd44304f4d82389416c05.zip",
+                "reference": "447c78f3f0697f203efdd44304f4d82389416c05",
                 "shasum": ""
             },
             "require": {
-                "doctrine/mongodb-odm-bundle": "dev-master",
                 "sonata-project/admin-bundle": "dev-master",
-                "symfony/framework-bundle": ">=2.1,<2.3-dev"
+                "doctrine/orm": ">=2.2,<2.4-dev",
+                "symfony/symfony": ">=2.1,<2.3-dev"
             },
-            "time": "2013-01-22 10:32:44",
+            "time": "2013-01-23 01:27:44",
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
-                    "Sonata\\DoctrineMongoDBAdminBundle": ""
+                    "Sonata\\DoctrineORMAdminBundle": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2124,18 +2124,17 @@
                 },
                 {
                     "name": "Sonata Community",
-                    "homepage": "https://github.com/sonata-project/SonataDoctrineMongoDBAdminBundle/contributors"
+                    "homepage": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle/contributors"
                 }
             ],
-            "description": "Symfony Sonata / Integrate Doctrine MongoDB ODM into the SonataAdminBundle",
+            "description": "Symfony Sonata / Integrate Doctrine ORM into the SonataAdminBundle",
             "homepage": "http://sonata-project.org/bundles/admin",
             "keywords": [
                 "admin",
                 "generator",
                 "Admin Generator",
                 "sonata",
-                "bootstrap",
-                "mongo"
+                "bootstrap"
             ]
         },
         {
@@ -2356,12 +2355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/MonologBundle",
-                "reference": "v2.2.0-BETA1"
+                "reference": "v2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/MonologBundle/archive/v2.2.0-BETA1.zip",
-                "reference": "v2.2.0-BETA1",
+                "url": "https://github.com/symfony/MonologBundle/archive/v2.1.7.zip",
+                "reference": "v2.1.7",
                 "shasum": ""
             },
             "require": {
@@ -2676,7 +2675,7 @@
         "jms/serializer-bundle": 20,
         "doctrine/mongodb-odm-bundle": 20,
         "sonata-project/admin-bundle": 20,
-        "sonata-project/doctrine-mongodb-admin-bundle": 20,
+        "sonata-project/doctrine-orm-admin-bundle": 20,
         "sonata-project/cache-bundle": 20,
         "mopa/bootstrap-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,

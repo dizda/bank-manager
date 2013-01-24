@@ -68,17 +68,17 @@ jms_di_extra:
         all_bundles: false
         bundles: [ DizdaBankManagerCoreBundle, UserBundle, DizdaCloudBackupBundle ]
         directories: ["%kernel.root_dir%/../src"]
-        
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://localhost:27017
-            options:
-                connect: true
-    default_database: creditmanager
-    document_managers:
-        default:
-            auto_mapping: true
+
+#doctrine_mongodb:
+#    connections:
+#        default:
+#            server: mongodb://localhost:27017
+#            options:
+#                connect: true
+#    default_database: creditmanager
+#    document_managers:
+#        default:
+#            auto_mapping: true
             
             
 sonata_block:
@@ -102,18 +102,18 @@ services:
     dizda.bank.core.admin.account:
         class: Dizda\BankManager\CoreBundle\Admin\AccountAdmin
         tags:
-            - { name: sonata.admin, manager_type: doctrine_mongodb, group: Account, label: Account }
-        arguments: [null, Dizda\BankManager\CoreBundle\Document\Account, DizdaBankManagerCoreBundle:AccountAdmin]
+            - { name: sonata.admin, manager_type: orm, group: Account, label: Account }
+        arguments: [null, Dizda\BankManager\CoreBundle\Entity\Account, DizdaBankManagerCoreBundle:AccountAdmin]
     dizda.bank.user.admin.user:
             class: Dizda\BankManager\UserBundle\Admin\UserAdmin
             tags:
-                - { name: sonata.admin, manager_type: doctrine_mongodb, group: Account, label: User }
-            arguments: [null, Dizda\BankManager\UserBundle\Document\User, UserBundle:UserAdmin]
-    dizda.bank.user.admin.options:
-            class: Dizda\BankManager\UserBundle\Admin\OptionsAdmin
-            tags:
-                - { name: sonata.admin, manager_type: doctrine_mongodb, group: Account, label: Options }
-            arguments: [null, Dizda\BankManager\UserBundle\Document\Options, UserBundle:OptionsAdmin]
+                - { name: sonata.admin, manager_type: orm, group: Account, label: User }
+            arguments: [null, Dizda\BankManager\UserBundle\Entity\User, UserBundle:UserAdmin]
+#    dizda.bank.user.admin.options:
+#            class: Dizda\BankManager\UserBundle\Admin\OptionsAdmin
+#            tags:
+#                - { name: sonata.admin, manager_type: doctrine_mongodb, group: Account, label: Options }
+#            arguments: [null, Dizda\BankManager\UserBundle\Document\Options, UserBundle:OptionsAdmin]
         
 #    dizda.bank.menu.main:
 #        class: Knp\Menu\MenuItem # the service definition requires setting the class

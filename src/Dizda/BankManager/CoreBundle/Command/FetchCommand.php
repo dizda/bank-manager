@@ -18,7 +18,7 @@ class FetchCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('bankmanager:fetch')
+            ->setName('dizda:bankmanager:fetch')
             ->setDescription('Fetch new accounts/transactions from the bank service\'s.')
             /*->addArgument('login', InputArgument::OPTIONAL, 'Your login')
             ->addArgument('pwd', InputArgument::OPTIONAL, 'Your password')*/
@@ -31,19 +31,16 @@ class FetchCommand extends ContainerAwareCommand
         $users  = $this->getContainer()->get('fos_user.user_manager')->findUsers();
 
 
-        foreach($users as $user)
-        {
+        foreach ($users as $user) {
 
             /* If login / pass aren't specified, we ignore and fetch the next user */
-            if($user->getWsLogin() === null || $user->getWsPassword() === null)
-            {
+            if ($user->getWsLogin() === null || $user->getWsPassword() === null) {
                 $output->writeln('<comment>'.$user->getUsername().' : You have to specify your service login/pass</comment>, <info>ignoring</info>');
                 continue;
             }
 
             /* If client can't connect with informations given, we ignore and fetch the next user */
-            if(!$client->login($user->getWsLogin(), $user->getWsPassword()))
-            {
+            if (!$client->login($user->getWsLogin(), $user->getWsPassword())) {
                 $output->writeln('<comment>'.$user->getUsername().' : Can\'t connect to the webservice, credentials incorrect ?</comment>, <info>ignoring</info>');
                 continue;
             }
@@ -52,8 +49,7 @@ class FetchCommand extends ContainerAwareCommand
              * Otherwise, we store accounts & transactions
              * TODO: New user : ASSIGN AUTOMATICLY NEW ACCOUNT TO CURRENT USER
              */
-            if($client->getAccounts() && $client->getTransactions($user))
-            {
+            if ($client->getAccounts($user) && $client->getTransactions($user)) {
                 $accounts = $this->getContainer()->get('dizda.bank.listener.account')->getStatsFetched();
 
                 foreach ($accounts as $iban => $account) {
