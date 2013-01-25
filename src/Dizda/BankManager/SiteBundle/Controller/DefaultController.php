@@ -16,12 +16,12 @@ class DefaultController extends CoreController
     {
         return array();
     }
-    
+
     public function menuAction()
     {
     	$accounts  = $this->getRepo('DizdaBankManagerCoreBundle:Account')
                           ->findAll();
-        
+
         return $this->render('DizdaBankManagerSiteBundle::menu.html.twig', [ 'accounts' => $accounts ]);
     }
 }
