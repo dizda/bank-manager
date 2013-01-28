@@ -12,27 +12,18 @@ use Doctrine\ORM\EntityRepository;
 class TransactionRepository extends EntityRepository
 {
 
-    /*public function getMonthTransactions($account, \DateTime $date)
-    {
-
-        $dateStart = clone $date->modify('first day of this month')->setTime(0,0,0);
-        $dateEnd   = $date->modify('last day of this month')->setTime(23,59,59);
-
-
-        $qb = $this->createQueryBuilder('s')
-            ->field('account.$id')->equals($account)
-            ->field('date_transaction')->gte($dateStart)
-            ->field('date_transaction')->lte($dateEnd)
-            ->sort('date_transaction', 'desc');
-
-        return $qb->getQuery()->execute();
-
-    }*/
-
+    /**
+     * Return every transactions for a month and by a specified account
+     *
+     * @param string    $account
+     * @param \DateTime $date
+     *
+     * @return array
+     */
     public function findByMonth($account, \DateTime $date)
     {
-        $dateStart = clone $date->modify('first day of this month')->setTime(0,0,0);
-        $dateEnd   = $date->modify('last day of this month')->setTime(23,59,59);
+        $dateStart = clone $date->modify('first day of this month')->setTime(0, 0, 0);
+        $dateEnd   = $date->modify('last day of this month')->setTime(23, 59, 59);
 
         $qb = $this->createQueryBuilder('a')
                    ->select('a')
@@ -48,6 +39,54 @@ class TransactionRepository extends EntityRepository
             $qb->setMaxResults($limit);*/
 
         return $qb->getQuery()->getResult();
+    }
+
+
+    public function compareLastMonths($account, $limitMonths = 6)
+    {
+        $beginMonth = new \DateTime(date('Y-m-d', (mktime(0, 0, 0, date("m"), 1, date("Y")))));
+        $beginMonth = $beginMonth->sub(new \DateInterval('P'.$limitMonths.'M'));
+
+
+        $qb = $this->_em->getConnection()->executeQuery(sprintf('
+        SELECT COUNT(id) as cpt, SUM(amount) as sum_total, SUM(IF(amount > 0, amount, 0)) as sum_positive, SUM(IF(amount > 0, 1, 0)) as count_positive, SUM(IF(amount < 0, amount, 0)) sum_negative, SUM(IF(amount < 0, 1, 0)) as count_negative, YEAR(date_transaction) as sum_year, MONTH(date_transaction) as sum_month
+        FROM  transaction
+        WHERE account_iban = "%s"
+        AND   date_transaction >= FROM_UNIXTIME("%s")
+        GROUP BY YEAR( date_transaction ) , MONTH( date_transaction )', $account, $beginMonth->getTimestamp()))
+        ->fetchAll();
+
+
+        return $qb;
+    }
+
+    private function diffCount($months, $loopMonth, $previousMonth)
+    {
+        /* we calculate the diff between last month and current month "evolution rate" */
+        if ( $months[$previousMonth]['positive'] == 0 ) /* avoid the division by 0 */
+            $evolutionPositive  = $months[$loopMonth]['positive'];
+        else
+            $evolutionPositive  = (($months[$loopMonth]['positive'] - $months[$previousMonth]['positive']) / $months[$previousMonth]['positive']) * 100;
+
+        if( $months[$previousMonth]['negative'] == 0 )
+            $evolutionNegative  = $months[$loopMonth]['negative'];
+        else
+            $evolutionNegative  = (($months[$loopMonth]['negative'] - $months[$previousMonth]['negative']) / $months[$previousMonth]['negative']) * 100;
+
+        if( $months[$previousMonth]['count'] == 0 )
+            $evolutionCount     = $months[$loopMonth]['count'];
+        else
+            $evolutionCount     = (($months[$loopMonth]['count'] - $months[$previousMonth]['count']) / $months[$previousMonth]['count']) * 100;
+
+        $evolutionPositive  = round($evolutionPositive);
+        $evolutionNegative  = round($evolutionNegative);
+        $evolutionCount     = round($evolutionCount);
+
+        $months[$loopMonth]['diff_from_last_month_positive'] = ($evolutionPositive > 0) ? '+' . $evolutionPositive : $evolutionPositive;
+        $months[$loopMonth]['diff_from_last_month_negative'] = ($evolutionNegative > 0) ? '+' . $evolutionNegative : $evolutionNegative;
+        $months[$loopMonth]['diff_from_last_month_count']    = ($evolutionCount > 0) ? '+' . $evolutionCount : $evolutionCount;
+
+        return $months;
     }
 
 }

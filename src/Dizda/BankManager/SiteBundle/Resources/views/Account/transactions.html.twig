@@ -1,7 +1,8 @@
 {% if history is defined %}
 
-    {% if history["now"|date('Y/m')] is defined %}
-        {% set currentMonth = history["now"|date('Y/m')] %}
+    {% if history is iterable %}
+        {#{% set currentMonth = history["now"|date('Y/m')] %}#}
+        {% set currentMonth = history[history|length - 1] %}
     {% endif %}
     {# else %}
         {% set currentMonth = 0 %}
@@ -9,23 +10,23 @@
     {% endif #}
     <ul class="stat-boxes">
         <li>
-            <div class="left peity_bar_good"><span>{% for month in history %}{{ month.positive }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{{ currentMonth.diff_from_last_month_positive }}%</div>
+            <div class="left peity_bar_good"><span>{% for month in history %}{{ month.sum_positive }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{#{{ currentMonth.diff_from_last_month_positive }}#}%</div>
             <div class="right">
-                <strong>{{ currentMonth.positive|number_format(0, '.', ' ') }} &euro;</strong>
+                <strong>{{ currentMonth.sum_positive|number_format(0, '.', ' ') }} &euro;</strong>
                 Recettes
             </div>
         </li>
         <li>
-            <div class="left peity_bar_bad"><span>{% for month in history %}{{ month.negative * (-1) }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{{ currentMonth.diff_from_last_month_negative }}%</div>
+            <div class="left peity_bar_bad"><span>{% for month in history %}{{ month.sum_negative * (-1) }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{#{{ currentMonth.diff_from_last_month_negative }}#}%</div>
             <div class="right">
-                <strong>{{ currentMonth.negative|number_format(0, '.', ' ') }} &euro;</strong>
+                <strong>{{ currentMonth.sum_negative|number_format(0, '.', ' ') }} &euro;</strong>
                 Dépenses
             </div>
         </li>
         <li>
-            <div class="left peity_bar_neutral"><span>{% for month in history %}{{ month.count }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{{ currentMonth.diff_from_last_month_count }}%</div>
+            <div class="left peity_bar_neutral"><span>{% for month in history %}{{ month.cpt }}{% if loop.last == false %},{% endif %}{% endfor %}</span>{#{{ currentMonth.diff_from_last_month_count }}#}%</div>
             <div class="right">
-                <strong>{{ currentMonth.count|number_format(0, '.', ' ') }}</strong>
+                <strong>{{ currentMonth.cpt|number_format(0, '.', ' ') }}</strong>
                 Transactions
             </div>
         </li>

@@ -22,14 +22,14 @@ class AccountController extends CoreController
 
         $transactions   = $repo->findByMonth($account, new \DateTime());
 
-        //$history        = $repo->compareLastMonths($account);
+        $history        = $repo->compareLastMonths($account);
 
 
 
 
 
         return array('transactions' => $transactions,
-                     //'history'      => $history,
+                     'history'      => $history,
                      'currentDate'  => new \DateTime(),
                      'previousMonth'=> (new \DateTime())->sub(new \DateInterval('P1M')),
                      'account'      => $account );
