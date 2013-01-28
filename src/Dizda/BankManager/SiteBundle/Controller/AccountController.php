@@ -20,27 +20,16 @@ class AccountController extends CoreController
     {
         $repo           = $this->getRepo('DizdaBankManagerCoreBundle:Transaction');
 
-        //$transactions   = $repo->findBy(array('account.$id' => $account), ['date_transaction' => 'DESC']);
-        $transactions   = $repo->getMonthTransactions($account, new \DateTime());
+        $transactions   = $repo->findByMonth($account, new \DateTime());
 
-        $history        = $repo->compareLastMonths($account);
-
+        //$history        = $repo->compareLastMonths($account);
 
 
-        /*$graph  = $this->getRepo('DizdaBankManagerCoreBundle:Account')
-            ->getMonthTransactions($account, new \DateTime());
 
-        foreach($graph as $g)
-        {
-            foreach($g->getBalanceHistory() as $bal)
-            {
-                echo $bal->getBalance() . " " . $bal->getDateFetched()->format('Y-m-d') . "<br />";
-            }
-        }*/
 
 
         return array('transactions' => $transactions,
-                     'history'      => $history,
+                     //'history'      => $history,
                      'currentDate'  => new \DateTime(),
                      'previousMonth'=> (new \DateTime())->sub(new \DateInterval('P1M')),
                      'account'      => $account );
@@ -57,7 +46,7 @@ class AccountController extends CoreController
         $date           = (new \DateTime())->setDate($year, $month, 1)->sub(new \DateInterval('P1M'));
         $previous       = clone $date;
 
-        $transactions   = $repo->getMonthTransactions($account, $date);
+        $transactions   = $repo->findByMonth($account, $date);
 
 
         return array('transactions' => $transactions,
@@ -72,28 +61,26 @@ class AccountController extends CoreController
     public function pointerAction($transaction)
     {
 
-        if($this->getRequest()->isXmlHttpRequest())
-        {
+        if ($this->getRequest()->isXmlHttpRequest()) {
 
             $repo          = $this->getRepo('DizdaBankManagerCoreBundle:Transaction');
             $transaction   = $repo->find($transaction);
 
 
-            if(!$transaction->getDatePointer())
-            {
+            if (!$transaction->getDatePointer()) {
 
                 $transaction->setDatePointer(new \DateTime());
                 $response  = ['pointer' => true];
 
-            }else{
+            } else {
 
                 $transaction->setDatePointer(null);
                 $response  = ['pointer' => false];
 
             }
 
-            $this->getDm()->persist($transaction);
-            $this->getDm()->flush();
+            $this->getEm()->persist($transaction);
+            $this->getEm()->flush();
 
 
 
@@ -109,28 +96,26 @@ class AccountController extends CoreController
     public function excludeAction($transaction)
     {
 
-        if($this->getRequest()->isXmlHttpRequest())
-        {
+        if ($this->getRequest()->isXmlHttpRequest()) {
 
             $repo          = $this->getRepo('DizdaBankManagerCoreBundle:Transaction');
             $transaction   = $repo->find($transaction);
 
 
-            if(!$transaction->getExcluded())
-            {
+            if (!$transaction->getExcluded()) {
 
                 $transaction->setExcluded(true);
                 $response  = ['excluded' => true];
 
-            }else{
+            } else {
 
                 $transaction->setExcluded(false);
                 $response  = ['excluded' => false];
 
             }
 
-            $this->getDm()->persist($transaction);
-            $this->getDm()->flush();
+            $this->getEm()->persist($transaction);
+            $this->getEm()->flush();
 
 
 

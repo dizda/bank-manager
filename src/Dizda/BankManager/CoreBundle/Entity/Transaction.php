@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Dizda\BankManager\CoreBundle\Entity\Repository\TransactionRepository")
  * @ORM\Table(name="transaction")
  * @ORM\HasLifecycleCallbacks
  * @JMS\XmlRoot("ligmvt")

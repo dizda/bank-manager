@@ -23,4 +23,5 @@ class CoreController extends Controller
     {
         return $this->getEm()->getRepository($repository);
     }
+
 }

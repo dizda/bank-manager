@@ -20,7 +20,7 @@ class DefaultController extends CoreController
     public function menuAction()
     {
     	$accounts  = $this->getRepo('DizdaBankManagerCoreBundle:Account')
-                          ->findAll();
+                          ->findByUser($this->getUser());
 
         return $this->render('DizdaBankManagerSiteBundle::menu.html.twig', [ 'accounts' => $accounts ]);
     }
