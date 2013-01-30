@@ -31,7 +31,8 @@
         "craue/formflow-bundle": "dev-master",
         "raulfraile/ladybug-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "*",
-        "dizda/cloud-backup-bundle": "dev-master"
+        "dizda/cloud-backup-bundle": "dev-master",
+        "codeception/codeception":  "@stable"
     },
     "repositories": [
            {
