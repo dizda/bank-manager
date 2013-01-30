@@ -1,6 +1,6 @@
 <?php
 
-namespace Dizda\BankManager\UserBundle\Document\MongoDB;
+namespace Dizda\BankManager\UserBundle\Document;
 
 use FOS\UserBundle\Document\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -88,7 +88,7 @@ class User extends BaseUser
      *
      * @param Dizda\BankManager\CoreBundle\Document\Account $accounts
      */
-    public function addAccounts(\Dizda\BankManager\CoreBundle\Document\MongoDB\Account $accounts)
+    public function addAccounts(\Dizda\BankManager\CoreBundle\Document\Account $accounts)
     {
         $this->accounts[] = $accounts;
     }
@@ -153,7 +153,7 @@ class User extends BaseUser
      * @param Dizda\BankManager\UserBundle\Document\Options $options
      * @return \User
      */
-    public function setOptions(\Dizda\BankManager\UserBundle\Document\MongoDB\Options $options)
+    public function setOptions(\Dizda\BankManager\UserBundle\Document\Options $options)
     {
         $this->options = $options;
         return $this;

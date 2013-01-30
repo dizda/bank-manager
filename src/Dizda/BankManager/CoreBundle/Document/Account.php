@@ -1,5 +1,5 @@
 <?php
-namespace Dizda\BankManager\CoreBundle\Document\MongoDB;
+namespace Dizda\BankManager\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -68,14 +68,14 @@ class Account
     private $simulation;
     
     /** @Exclude
-     *  @MongoDB\ReferenceMany(targetDocument="Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction", mappedBy="account") */
+     *  @MongoDB\ReferenceMany(targetDocument="Dizda\BankManager\CoreBundle\Document\Transaction", mappedBy="account") */
     protected $transactions;
     
     /** @Exclude
      *  @MongoDB\EmbedMany(targetDocument="BalanceHistory") */
     private $balanceHistory = array();
 
-    /** @MongoDB\ReferenceOne(targetDocument="Dizda\BankManager\UserBundle\Document\MongoDB\User", inversedBy="accounts")
+    /** @MongoDB\ReferenceOne(targetDocument="Dizda\BankManager\UserBundle\Document\User", inversedBy="accounts")
      *  @MongoDB\Index
      *  @Exclude */
     protected $user;
@@ -356,7 +356,7 @@ class Account
      *
      * @param Dizda\BankManager\CoreBundle\Document\Transaction $transactions
      */
-    public function addTransactions(\Dizda\BankManager\CoreBundle\Document\MongoDB\Transaction $transactions)
+    public function addTransactions(\Dizda\BankManager\CoreBundle\Document\Transaction $transactions)
     {
         $this->transactions[] = $transactions;
     }
@@ -376,7 +376,7 @@ class Account
      *
      * @param Dizda\BankManager\CoreBundle\Document\BalanceHistory $balanceHistory
      */
-    public function addBalanceHistory(\Dizda\BankManager\CoreBundle\Document\MongoDB\BalanceHistory $balanceHistory)
+    public function addBalanceHistory(\Dizda\BankManager\CoreBundle\Document\BalanceHistory $balanceHistory)
     {
         $this->balanceHistory[] = $balanceHistory;
     }
@@ -397,7 +397,7 @@ class Account
      * @param Dizda\BankManager\UserBundle\Document\User $user
      * @return Account
      */
-    public function setUser(\Dizda\BankManager\UserBundle\Document\MongoDB\User $user)
+    public function setUser(\Dizda\BankManager\UserBundle\Document\User $user)
     {
         $this->user = $user;
         return $this;
