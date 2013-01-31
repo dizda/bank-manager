@@ -31,6 +31,8 @@ class ExportToMysqlCommand extends ContainerAwareCommand
 
             if ($mysqlAccount) {
 
+                $mysqlAccount->setBalance($account->getBalance());
+
                 $cptBalance = 0;
                 $cptTrans   = 0;
 
@@ -64,6 +66,7 @@ class ExportToMysqlCommand extends ContainerAwareCommand
                     $cptTrans++;
                 }
 
+                $em->persist($mysqlAccount);
                 $output->writeln('<comment>'.$cptTrans.' transactions writed.</comment>');
 
             }

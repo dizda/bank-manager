@@ -69,16 +69,16 @@ jms_di_extra:
         bundles: [ DizdaBankManagerCoreBundle, UserBundle, DizdaCloudBackupBundle ]
         directories: ["%kernel.root_dir%/../src"]
 
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://localhost:27017
-            options:
-                connect: true
-    default_database: creditmanager
-    document_managers:
-        default:
-            auto_mapping: true
+#doctrine_mongodb:
+#    connections:
+#        default:
+#            server: mongodb://localhost:27017
+#            options:
+#                connect: true
+#    default_database: creditmanager
+#    document_managers:
+#        default:
+#            auto_mapping: true
             
             
 sonata_block:
