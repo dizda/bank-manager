@@ -19,21 +19,15 @@ class AccountListener
 {
     protected $em;
     protected $statsFetched = [];
-    private $push_user;
-    private $push_token;
 
     /**
      * @DI\InjectParams({
-     *     "em"           = @DI\Inject("doctrine.orm.entity_manager"),
-     *     "push_user"    = @DI\Inject("%pushover_user%"),
-     *     "push_token"   = @DI\Inject("%pushover_token%")
+     *     "em"           = @DI\Inject("doctrine.orm.entity_manager")
      * })
      */
-    public function __construct(EntityManager $em, $push_user, $push_token)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->push_user  = $push_user;
-        $this->push_token = $push_token;
     }
 
     
@@ -100,7 +94,7 @@ class AccountListener
                     $transaction->setAccount($accountEntity);
                     $this->em->persist($transaction); // PLEASE UNCOMMENT, FOR DEV PURPOSE
                     $this->statsFetched[$key]['added']++;
-                    //$this->sendAlertEmail($transaction, $event->getUser());
+                    $this->sendPush($transaction, $event->getUser());
                 }
 
                 $this->statsFetched[$key]['count']++;
@@ -120,7 +114,7 @@ class AccountListener
      * @param \Dizda\BankManager\CoreBundle\Document\Transaction $transaction
      * @param \Dizda\BankManager\UserBundle\Document\User $user
      */
-    public function sendAlertEmail(Transaction $transaction, User $user)
+    public function sendPush(Transaction $transaction, User $user)
     {
         /**
          * We concat user - to AlertAmount (ex. 50, to make -50)
@@ -128,13 +122,14 @@ class AccountListener
          * So we have to transform our float(50) to float(-50)
          * And the comparaison symbole ">" is now "<"
          */
-        if (($transaction->getAmount() < (- $user->getOptions()->getAlertAmount())) && $user->getOptions()->getAllowEmail()) {
+        //if (($transaction->getAmount() < (- $user->getOptions()->getAlertAmount())) && $user->getOptions()->getAllowEmail()) {
+        if ($transaction->getAmount()) {
             //var_dump($transaction->getAmount()); /* sending mail here ! an eventdispatcher ! */
             curl_setopt_array($ch = curl_init(), array(
                 CURLOPT_URL   => "https://api.pushover.net/1/messages.json",
                 CURLOPT_POSTFIELDS => array(
-                    "token"   =>  $this->push_token,
-                    "user"    =>  $this->push_user,
+                    "token"   =>  $user->getPushoverToken(),
+                    "user"    =>  $user->getPushoverUser(),
                     "message" => $transaction->getAmount() . "€ from account " . $transaction->getAccount()->getName() . "\n" .
                                  "New solde " . $transaction->getAccount()->getBalance() . " (before " . $transaction->getAccount()->getBalanceHistory()->offsetGet($transaction->getAccount()->getBalanceHistory()->count() - 2)->getBalance() . ")\n" .
                                  $transaction->getLabel() . "\n" .

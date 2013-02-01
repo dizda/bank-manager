@@ -32,6 +32,20 @@ class User extends BaseUser
      */
     protected $ws_password;
 
+    /**
+     * Pushover User account
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $pushover_user;
+
+    /**
+     * Pushover User API token
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    protected $pushover_token;
+
 
     /**
      * @ORM\Column(type="datetime")
@@ -163,5 +177,51 @@ class User extends BaseUser
     public function getAccounts()
     {
         return $this->accounts;
+    }
+
+    /**
+     * Set pushover_user
+     *
+     * @param string $pushoverUser
+     * @return User
+     */
+    public function setPushoverUser($pushoverUser)
+    {
+        $this->pushover_user = $pushoverUser;
+    
+        return $this;
+    }
+
+    /**
+     * Get pushover_user
+     *
+     * @return string 
+     */
+    public function getPushoverUser()
+    {
+        return $this->pushover_user;
+    }
+
+    /**
+     * Set pushover_token
+     *
+     * @param string $pushoverToken
+     * @return User
+     */
+    public function setPushoverToken($pushoverToken)
+    {
+        $this->pushover_token = $pushoverToken;
+    
+        return $this;
+    }
+
+    /**
+     * Get pushover_token
+     *
+     * @return string 
+     */
+    public function getPushoverToken()
+    {
+        return $this->pushover_token;
     }
 }

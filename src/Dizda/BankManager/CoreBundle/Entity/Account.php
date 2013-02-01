@@ -461,4 +461,9 @@ class Account
     {
         return $this->balanceHistory;
     }
+
+    public function __toString()
+    {
+        return $this->iban . ' - ' . $this->name;
+    }
 }
