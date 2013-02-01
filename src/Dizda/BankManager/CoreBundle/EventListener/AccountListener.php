@@ -123,7 +123,7 @@ class AccountListener
          * And the comparaison symbole ">" is now "<"
          */
         //if (($transaction->getAmount() < (- $user->getOptions()->getAlertAmount())) && $user->getOptions()->getAllowEmail()) {
-        if ($transaction->getAmount()) {
+        if ($transaction->getAmount() && $user->getPushoverToken() && $user->getPushoverUser()) {
             //var_dump($transaction->getAmount()); /* sending mail here ! an eventdispatcher ! */
             curl_setopt_array($ch = curl_init(), array(
                 CURLOPT_URL   => "https://api.pushover.net/1/messages.json",
