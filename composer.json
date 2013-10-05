@@ -25,7 +25,7 @@
         "sonata-project/admin-bundle": "2.2.5",
         "sonata-project/doctrine-orm-admin-bundle": "2.2.4",
         "sonata-project/cache-bundle": "2.1.4",
-        "mopa/bootstrap-bundle": "2.3.*@dev",
+        "mopa/bootstrap-bundle": "2.3.x-dev",
         "twbs/bootstrap": "v2.3.2",
         "knplabs/knp-paginator-bundle": "dev-master",
         "craue/formflow-bundle": "dev-master",
