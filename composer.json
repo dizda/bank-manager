@@ -34,24 +34,6 @@
         "dizda/cloud-backup-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master"
     },
-    "repositories": [
-           {
-               "type": "package",
-               "package": {
-                   "version": "v2.3.2",
-                   "name": "twbs/bootstrap",
-                   "source": {
-                       "url": "https://github.com/twbs/bootstrap.git",
-                       "type": "git",
-                       "reference": "v2.3.2"
-                   },
-                   "dist": {
-                       "url": "https://github.com/twbs/bootstrap/zipball/v2.3.2",
-                       "type": "zip"
-                   }
-               }
-           }
-       ],
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
