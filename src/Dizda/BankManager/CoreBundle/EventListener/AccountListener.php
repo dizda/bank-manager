@@ -22,7 +22,7 @@ class AccountListener
 
     /**
      * @DI\InjectParams({
-     *     "em"           = @DI\Inject("doctrine.orm.entity_manager")
+     *     "em" = @DI\Inject("doctrine.orm.entity_manager")
      * })
      */
     public function __construct(EntityManager $em)

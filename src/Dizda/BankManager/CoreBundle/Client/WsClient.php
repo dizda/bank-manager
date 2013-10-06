@@ -124,9 +124,14 @@ class WsClient
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->postLogin);
 
-        //$content = explode("\n", curl_exec($this->curl));
         $content = curl_exec($this->curl);
-        $content = substr($content, strpos($content, '<?xml'));
+
+        // if data doesn't contain xml tag
+        if (strpos($content, '<?xml') === false) {
+            $content = substr($content, strpos($content, '<root>'));
+        } else {
+            $content = substr($content, strpos($content, '<?xml'));
+        }
 
         $content = new \SimpleXMLElement($content);
 
