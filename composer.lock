@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "acc98a3f2228a1279a015d6ecf0a7a00",
+    "hash": "b2f328c74e4713779d77af028e889619",
     "packages": [
         {
             "name": "craue/formflow-bundle",
