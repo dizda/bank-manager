@@ -173,6 +173,4 @@ dizda_cloud_backup:
             remote_path: %dizda_cloud_dropbox_remote_path%
 
     databases:
-        mongodb:
-            all_databases: false
-            database: creditmanager
+        mysql:
