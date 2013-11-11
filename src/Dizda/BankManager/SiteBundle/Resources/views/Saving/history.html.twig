@@ -1,0 +1,36 @@
+{% extends 'DizdaBankManagerSiteBundle::layout.html.twig' %}
+
+{% block content %}
+    {% set totalYear = 0 %}
+
+    <div class="span8">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Nbre Transac.</th>
+                <th>Montant</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for history in histories %}
+
+
+                {% set totalYear = 0 %}
+
+                <tr class="{% if history.montant > 0 %}success{% else %}error{% endif %}">
+                    <td class="date">
+                        {{ history.date_month }}
+                    </td>
+                    <td>
+                        {{ history.cpt }}
+                    </td>
+                    <td class="amount">{{ history.montant|number_format(2, '.', ' ') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

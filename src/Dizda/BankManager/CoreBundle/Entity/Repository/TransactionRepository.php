@@ -89,4 +89,17 @@ class TransactionRepository extends EntityRepository
         return $months;
     }
 
+
+    public function getSavingHistory($account)
+    {
+        $qb = $this->_em->getConnection()->executeQuery('
+            SELECT DATE_FORMAT(date_transaction, "%Y/%m") as date_month, SUM(amount) as montant, count(id) as cpt
+            FROM transaction
+            WHERE account_iban = "'.$account.'"
+            group by YEAR(date_transaction), MONTH(date_transaction)
+            order by date_transaction desc')
+        ->fetchAll();
+
+        return $qb;
+    }
 }

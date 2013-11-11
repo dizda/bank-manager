@@ -1,24 +1,6 @@
 {% from 'MopaBootstrapBundle::macros.html.twig' import label, badge %}
 
 
-{#<div class="well" style="padding: 8px 0; margin-bottom: 0;">
-    <ul class="nav nav-list">
-        <li class="{% if app.request.requestUri == path('dizda_bankmanager_site_default_index') %}active{% endif %}"><a href="{{ path('dizda_bankmanager_site_default_index') }}"><i class="icon-home"></i> Home</a></li>
-        {% for account in accounts %}
-        <li class="account {% if app.request.requestUri == path('dizda_bankmanager_site_account_list', {'account':account.iban}) %}active{% endif %}"><a href="{{ path('dizda_bankmanager_site_account_list', {'account':account.iban}) }}">
-                <i class="icon-book"></i> 
-                {% if account.balance > 0 %}
-                    {{ badge(account.balance|number_format(2, '.', ' '), 'success') }}
-                {% else %}
-                    {{ badge(account.balance|number_format(2, '.', ' '), 'important') }}
-                {% endif %}
-                 {{ account.name|slice(13)|replace({'M JONATHAN DIZDAREVIC':''}) }}
-                
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>#}
 
 <ul class="nav nav-tabs nav-stacked bs-docs-sidenav affix">
     <li class="{% if app.request.requestUri == path('dizda_bankmanager_site_default_index') %}active{% endif %}"><a href="{{ path('dizda_bankmanager_site_default_index') }}"><i class="icon-home"></i> Home</a></li>
@@ -35,5 +17,6 @@
         </a>
         </li>
     {% endfor %}
+    <li><a href="{{ path('dizda_bankmanager_site_saving_history') }}"><i class="icon-time"></i> Epargne Historique</a></li>
     <li><a href="{{ path('admin_bankmanager_user_user_edit', { 'id':app.security.getToken().getUser().getId() } ) }}"><i class="icon-wrench"></i> Configuration</a></li>
 </ul>
