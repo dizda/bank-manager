@@ -182,10 +182,10 @@ happyr_google_site_authenticator:
 
 dizda_cloud_backup:
     cloud_storages:
-        dropbox:
-            user:     %dizda_cloud_dropbox_user%
-            password: %dizda_cloud_dropbox_password%
-            remote_path: %dizda_cloud_dropbox_remote_path%
+#        dropbox:
+#            user:     %dizda_cloud_dropbox_user%
+#            password: %dizda_cloud_dropbox_password%
+#            remote_path: %dizda_cloud_dropbox_remote_path%
 
         google_drive:
             token_name: google_drive # Required
