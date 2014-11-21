@@ -169,7 +169,7 @@ doctrine_cache:
         file:
             file_system:
                 extension: '.token'
-                directory: '%kernel.root_dir%/var/storage/fs_cache/'
+                directory: '%kernel.root_dir%/cache/storage/fs_cache/'
 
 happyr_google_site_authenticator:
     cache_service: doctrine_cache.providers.file
