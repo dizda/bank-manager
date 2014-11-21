@@ -23,6 +23,10 @@ security:
             pattern:  ^/demo/secured/login$
             security: false
 
+        google_oauth:
+            pattern:  ^/google
+            security: false
+
         secured_area:
             pattern:    ^/
             anonymous: false
