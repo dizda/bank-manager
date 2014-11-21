@@ -19,14 +19,6 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        google_oauth:
-            pattern:  ^/google
-            security: false
-
         secured_area:
             pattern:    ^/
             anonymous: false
@@ -36,6 +28,10 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
+
+        google_oauth:
+            pattern:  ^/google
+            security: false
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
