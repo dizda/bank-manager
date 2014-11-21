@@ -131,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dizda/CloudBackupBundle.git",
-                "reference": "40e03d598db1edf061307abb12e98ac2079962f5"
+                "reference": "a78ab40a4eca4916f75557356fe24942b672eff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dizda/CloudBackupBundle/zipball/40e03d598db1edf061307abb12e98ac2079962f5",
-                "reference": "40e03d598db1edf061307abb12e98ac2079962f5",
+                "url": "https://api.github.com/repos/dizda/CloudBackupBundle/zipball/a78ab40a4eca4916f75557356fe24942b672eff1",
+                "reference": "a78ab40a4eca4916f75557356fe24942b672eff1",
                 "shasum": ""
             },
             "require": {
@@ -145,9 +145,11 @@
                 "symfony/framework-bundle": ">=2.1"
             },
             "require-dev": {
+                "google/apiclient": "@dev",
                 "symfony/symfony": "v2.3.1"
             },
             "suggest": {
+                "happyr/google-site-authenticator-bundle": "To enable upload dumps on google drive.",
                 "matthiasplappert/cloudapp-api": "dev-master"
             },
             "type": "symfony-bundle",
@@ -189,7 +191,7 @@
                 "mysql",
                 "symfony"
             ],
-            "time": "2014-11-21 10:02:21"
+            "time": "2014-11-21 12:46:59"
         },
         {
             "name": "doctrine/annotations",
