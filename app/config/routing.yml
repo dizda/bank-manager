@@ -17,6 +17,10 @@ _sonata_admin:
     type: sonata_admin
     prefix: /admin
 
+happyr_google_site_authenticator:
+    resource: "@HappyrGoogleSiteAuthenticatorBundle/Resources/config/routing.yml"
+    prefix:   /google
+
 #dizda_bankmanager_core:
 #    resource: "@DizdaBankManagerCoreBundle/Controller/"
 #    type:     annotation
