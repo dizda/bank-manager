@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f5f6592c3dab48b7b03510875e1abddc",
+    "hash": "fdba94103a5faeb218701980ac5e154e",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -604,6 +604,90 @@
             "time": "2013-03-25 20:13:59"
         },
         {
+            "name": "doctrine/doctrine-cache-bundle",
+            "version": "dev-master",
+            "target-dir": "Doctrine/Bundle/DoctrineCacheBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineCacheBundle.git",
+                "reference": "5c5ee811ece1d79993cbee8bfa49ce2503adddd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/DoctrineCacheBundle/zipball/5c5ee811ece1d79993cbee8bfa49ce2503adddd1",
+                "reference": "5c5ee811ece1d79993cbee8bfa49ce2503adddd1",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/cache": "~1.3",
+                "doctrine/inflector": "~1.0",
+                "php": ">=5.3.2",
+                "symfony/doctrine-bridge": "~2.2",
+                "symfony/framework-bundle": "~2.2",
+                "symfony/security": "~2.2"
+            },
+            "require-dev": {
+                "instaclick/coding-standard": "~1.1",
+                "instaclick/object-calisthenics-sniffs": "dev-master",
+                "instaclick/symfony2-coding-standard": "dev-remaster",
+                "phpunit/phpunit": "~3.7",
+                "satooshi/php-coveralls": "~0.6.1",
+                "squizlabs/php_codesniffer": "dev-master",
+                "symfony/console": "~2.2",
+                "symfony/finder": "~2.2",
+                "symfony/validator": "~2.2",
+                "symfony/yaml": "~2.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Bundle\\DoctrineCacheBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Fabio B. Silva",
+                    "email": "fabio.bat.silva@gmail.com"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@hotmail.com"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org/"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony2 Bundle for Doctrine Cache",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "cache",
+                "caching"
+            ],
+            "time": "2014-11-10 16:08:53"
+        },
+        {
             "name": "doctrine/doctrine-migrations-bundle",
             "version": "dev-master",
             "target-dir": "Doctrine/Bundle/MigrationsBundle",
@@ -980,6 +1064,96 @@
                 "User management"
             ],
             "time": "2014-11-19 10:33:47"
+        },
+        {
+            "name": "google/apiclient",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/google/google-api-php-client.git",
+                "reference": "f985b38158efe4c55c90b90443311f792c919a59"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/f985b38158efe4c55c90b90443311f792c919a59",
+                "reference": "f985b38158efe4c55c90b90443311f792c919a59",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Client library for Google APIs",
+            "homepage": "http://developers.google.com/api-client-library/php",
+            "keywords": [
+                "google"
+            ],
+            "time": "2014-11-20 10:13:43"
+        },
+        {
+            "name": "happyr/google-site-authenticator-bundle",
+            "version": "dev-master",
+            "target-dir": "Happyr/GoogleSiteAuthenticatorBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Happyr/GoogleSiteAuthenticatorBundle.git",
+                "reference": "af3ca6a9a0690871c1f59b690945baea45c284fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Happyr/GoogleSiteAuthenticatorBundle/zipball/af3ca6a9a0690871c1f59b690945baea45c284fb",
+                "reference": "af3ca6a9a0690871c1f59b690945baea45c284fb",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-cache-bundle": "~1.0",
+                "google/apiclient": "~1.1",
+                "php": ">=5.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Happyr\\GoogleSiteAuthenticatorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias@happyr.com"
+                }
+            ],
+            "description": "Authenticate your site with Google API. Can be used instead as Domain-Wide Delegation of Authority",
+            "homepage": "http://developer.happyr.com",
+            "keywords": [
+                "Authentication",
+                "Domain-Wide",
+                "Domain-Wide Delegation",
+                "Site-wide",
+                "api",
+                "google"
+            ],
+            "time": "2014-11-21 09:57:05"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -3496,7 +3670,8 @@
         "knplabs/knp-paginator-bundle": 20,
         "craue/formflow-bundle": 20,
         "dizda/cloud-backup-bundle": 20,
-        "doctrine/doctrine-migrations-bundle": 20
+        "doctrine/doctrine-migrations-bundle": 20,
+        "happyr/google-site-authenticator-bundle": 20
     },
     "prefer-stable": false,
     "platform": {

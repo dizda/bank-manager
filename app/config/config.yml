@@ -164,12 +164,31 @@ sonata_admin:
 #      renderer: page
 #TEMPORARY
 
+doctrine_cache:
+    providers:
+        file:
+            file_system:
+                extension: '.token'
+                directory: '%kernel.root_dir%/var/storage/fs_cache/'
+
+happyr_google_site_authenticator:
+    cache_service: doctrine_cache.providers.file
+    tokens:
+        google_drive:
+            client_id: %dizda_cloud_google_client_id%
+            client_secret: %dizda_cloud_google_client_secret%
+            redirect_url: %dizda_cloud_google_redirect_url%
+            scopes: ['https://www.googleapis.com/auth/drive']
 
 dizda_cloud_backup:
     cloud_storages:
         dropbox:
             user:     %dizda_cloud_dropbox_user%
             password: %dizda_cloud_dropbox_password%
+            remote_path: %dizda_cloud_dropbox_remote_path%
+
+        google_drive:
+            token_name: google_drive # Required
             remote_path: %dizda_cloud_dropbox_remote_path%
 
     databases:

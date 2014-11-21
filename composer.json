@@ -31,7 +31,8 @@
         "craue/formflow-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~1.3",
         "dizda/cloud-backup-bundle": "dev-master",
-        "doctrine/doctrine-migrations-bundle": "dev-master"
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "happyr/google-site-authenticator-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
